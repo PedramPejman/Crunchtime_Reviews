@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block content %} 
+	<div id="request">
+		<a href="request/" id="request_button">Request</a>
+	</div>
+	<ul id="sessions">
+		{% for session in sessions %}
+			<li>{{session}}</li>
+		{% endfor%}
+	</ul>
+{% endblock%}

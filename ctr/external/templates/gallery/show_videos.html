@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block content %} 
+	<ul id="videos">
+		{% for video in videos %}
+			<li>
+			{%if video.section%}
+				{{video.section}} - 
+			{%endif%}
+			{{video.title}}</li>
+		{% endfor%}
+	</ul>
+{% endblock%}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %} 
+	<ul id="units">
+		{% for unit, unit_videos in videos.items %}
+			<li><a href="{{unit}}">{{unit}}</a></li>
+			<ul id="videos">
+				{% for video in unit_videos%}
+					<li><a href="{{unit}}{{'#'|safe}}{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.section|add:" - "|add:video.title}}</a></li>
+				{% endfor %}
+					
+			</ul>
+		{% endfor %}
+	</ul>
+{% endblock%}
