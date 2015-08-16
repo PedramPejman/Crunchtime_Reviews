@@ -1,0 +1,39 @@
+<div class="tab-title">Sessions</div>
+<ul class = 'session-list'>
+  {% for session in sessions%}
+  <li class = "session">
+    <div data-day='{{session.date.day}}' class="detail">
+      <div class="pic">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/chandler.jpg" />
+      </div>
+      <div class="text">
+        <span class="course-name">{{session.course.name}}</span>
+        <span class="description">{{session.description}}</span>
+        <br><br>
+        <div class = 'session-detail'>
+          <span class="location">{{session.location}}</span>
+          <span class="date">{{session.date}}</span>
+          <span class="time">{{session.time}}</span>
+        </div>
+        <div class = 'session-detail session-icons'>
+          <span class="icon fa fa-building-o fa-1x"></span>
+          <span class="icon fa fa-calendar fa-1x"></span>
+          <span class="icon fa fa-clock-o fa-1x"></span>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="fold-top"></div>
+      <div class="fold-bottom"></div>
+      <div class="icons">
+        <div class="submit-button">
+          <svg>
+            <rect x="0" y="0" fill="none" width="136" height="35"/>
+          </svg>
+          Sign Up
+        </div>
+      </div>
+    </div>
+  </li>
+  {% endfor%}
+</ul>

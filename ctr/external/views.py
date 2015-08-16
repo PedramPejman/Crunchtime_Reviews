@@ -4,12 +4,45 @@ from datetime import datetime, timedelta
 from django.views.generic import ListView
 from .forms import *
 from external.models import *
+import calendar
 
 def sessions_show(request):
-	sessions = Session.objects.filter(date__gte= (datetime.now() - timedelta(days=3)))
-	for session in sessions:
-		print(session)
-	return render_to_response('sessions/show.html',{'sessions':sessions})
+	recent_sessions = Session.objects.filter(date__gte= (datetime.now() - timedelta(days=7)))[:5]
+	sessions = Session.objects.all()
+	today = datetime.today()
+	cal = calendar.Calendar()
+	month_name = calendar.month_name[today.month]
+	days = cal.itermonthdates(today.year, today.month)
+	result = []
+	for day in days:
+		if day.month == today.month: 
+			css_class = ''
+		else:
+			css_class = 'prev-month'
+		if len(sessions.filter(date__exact=day)) > 0:
+			css_class += 'session-day'
+		result.append({'day': day.day, 'class': css_class})
+	return render_to_response('sessions/show.html',{'sessions':sessions, 'days': result, 
+		'month_name':month_name})
+
+def calendar_show(request):
+	sessions = Session.objects.all()
+	today = datetime.today()
+	cal = calendar.Calendar()
+	month_name = calendar.month_name[today.month]
+	days = cal.itermonthdates(today.year, today.month)
+	result = []
+	for day in days:
+		if day.month == today.month: 
+			css_class = ''
+		else:
+			css_class = 'prev-month'
+		if len(sessions.filter(date__exact=day)) > 0:
+			css_class += 'session'
+		result.append({'day': day.day, 'class': css_class})
+
+	return render_to_response('sessions/show.html',{'sessions':sessions, 'days': result, 
+		'month_name':month_name})	
 
 def sessions_request(request):
 	if request.method == 'POST':

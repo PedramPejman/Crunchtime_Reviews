@@ -1,0 +1,160 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400);
+
+body {
+  background: #eee;
+  font-family: 'Open Sans';
+  font-weight: 300;
+}
+
+.session-list {
+  width: 540px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.session-list .session {
+  display: block;
+  text-align: center;
+}
+
+.session .detail {
+  width: 100%;
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.session.open .detail {
+  background: rgba(0,0,0,.6);
+  color: #ccc;
+  border-bottom: 0;
+}
+
+.detail .pic {
+  float: left;
+  left: 10px;
+  width: 65px;
+  height: 65px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+}
+
+.detail .text {
+  left: 20px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 450px;
+}
+
+.detail .text .course-name {
+  display: block;
+  font-weight: 400;
+}
+
+.open .detail .text .course-name {
+  color: #fff;
+}
+
+.detail .session-detail span {
+  display: inline-block;
+    display: -moz-inline-box;
+    *display: inline; /* For IE7 */
+    zoom: 1; /* Trigger hasLayout */
+    width: 30%;
+    text-align: center;
+}
+
+.toolbar {
+  width: 100%;
+  background: #222;
+  height: 0;
+  position: relative;
+  transition: height 0.2s ease-in-out;
+  perspective: 200px;
+  overflow: hidden;
+}
+
+.open .toolbar {
+  width: 100%;
+  height: 50px;  
+}
+
+.fold-top, .fold-bottom {
+  height: 20px;
+  width: 312px;
+  left: 4px;
+  position: absolute;
+  transition: all 0.22s ease-in-out;
+}
+
+.open .fold-top, .open .fold-bottom {
+  background: #5c5c5c;
+  transform: rotateX(0deg);
+  width: 100%;
+  left: 0;
+}
+
+.toolbar .fold-top {
+  transform-origin: top center;
+  transform: rotateX(-90deg);
+  top: 0;
+  background: #444;
+}
+
+.toolbar .fold-bottom {
+  transform-origin: bottom center;
+  transform: rotateX(90deg);
+  bottom: 0;
+  background: #666;
+}
+
+.submit-button {
+  position: relative;
+  display: inline-block;
+  width: 136px;
+  height: 35px;
+  top:9px;
+  left:auto;
+  font-size: 12px;
+  line-height: 35px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  color: #FFF;
+  transition: .2s;
+}
+
+.submit-button svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.submit-button svg rect {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1;
+  stroke-dasharray: 222, 0;
+  -webkit-transition: all 1300ms cubic-bezier(0.19, 1, 0.22, 1);
+  -moz-transition: all 1300ms cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 1300ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.submit-button:hover svg rect {
+  stroke-width: 5;
+  stroke-dasharray: 30, 227;
+  stroke-dashoffset: 33;
+}
+
+.submit-button:hover {
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}

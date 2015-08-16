@@ -1,0 +1,130 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400);
+
+  body {
+  font-size: 1em;
+  background: #fafafa;
+  font-family: Lato;
+  font-weight: 300;
+}
+
+.tab-title {
+  padding: 30px;
+  width: 150px;
+  margin: auto; 
+  font-size: 2.5em;
+  font-weight: 100;
+}
+
+.sexytabs {
+  width: 90%;
+  min-width: 360px;
+  margin: auto;
+}
+
+.contents {
+  padding: 0px 50px;
+  min-height: 200px;
+}
+
+.sexytabs > ul {
+  text-align: center;
+  font-weight: 500;
+  margin: 50px 0 0;
+  padding: 0;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.sexytabs > ul > li {
+  display: inline-block;
+  background: #fafafa;
+  padding: 0.6em 0;
+  position: relative;
+  width: 33%;
+  margin: 0 0 0 -4px;
+}
+.sexytabs > ul > li:before, .sexytabs > ul > li:after {
+  opacity: 0;
+  transition: 0.3s ease;
+}
+.sexytabs > ul > li.ui-tabs-active:before, .sexytabs > ul > li.ui-tabs-active:after, .sexytabs > ul > li.ui-state-hover:before, .sexytabs > ul > li.ui-state-hover:after, .sexytabs > ul > li.ui-state-focus:before, .sexytabs > ul > li.ui-state-focus:after {
+  opacity: 1;
+}
+.sexytabs > ul > li:before, .sexytabs > ul > li.ui-state-active.ui-state-hover:before, .sexytabs > ul > li.ui-state-active.ui-state-focus:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  box-shadow: 0 2px 3px rgba(22, 195, 255, 0.5);
+  top: 50%;
+  bottom: 0px;
+  left: 5px;
+  right: 5px;
+  border-radius: 100px / 10px;
+}
+.sexytabs > ul > li:after, .sexytabs > ul > li.ui-state-active.ui-state-hover:after, .sexytabs > ul > li.ui-state-active.ui-state-focus:after {
+  content: "";
+  background: #fafafa;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 50%;
+  bottom: -6px;
+  margin-left: -6px;
+  transform: rotate(45deg);
+  box-shadow: inset 3px 3px 3px rgba(22, 195, 255, 0.5), inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+.sexytabs > ul > li.ui-state-hover:before, .sexytabs > ul > li.ui-state-focus:before {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+.sexytabs > ul > li.ui-state-hover:after, .sexytabs > ul > li.ui-state-focus:after {
+  box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2), inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+.sexytabs > ul > li.ui-state-focus a {
+  text-decoration: underline;
+}
+.sexytabs > ul > li:focus {
+  outline: none;
+}
+.sexytabs > ul > li a {
+  color: #444;
+  text-decoration: none;
+}
+.sexytabs > ul > li a:focus {
+  outline: none;
+}
+.sexytabs > ul > li a span {
+  position: relative;
+  top: -0.5em;
+}
+
+.sexytabs.dark > ul {
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+.sexytabs.dark > ul > li {
+  background: #333;
+}
+.sexytabs.dark > ul > li:before, .sexytabs.dark > ul > li.ui-state-active.ui-state-hover:before, .sexytabs.dark > ul > li.ui-state-active.ui-state-focus:before {
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
+}
+.sexytabs.dark > ul > li:after, .sexytabs.dark > ul > li.ui-state-active.ui-state-hover:after, .sexytabs.dark > ul > li.ui-state-active.ui-state-focus:after {
+  background: #333;
+  box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.3), inset 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+.sexytabs.dark > ul > li.ui-state-hover:before, .sexytabs.dark > ul > li.ui-state-focus:before {
+  box-shadow: none;
+}
+.sexytabs.dark > ul > li.ui-state-hover:after, .sexytabs.dark > ul > li.ui-state-focus:after {
+  box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.4);
+}
+.sexytabs.dark > ul > li a {
+  color: white;
+}
+
+@media screen and (min-width: 1000px) {
+  .darkpage,
+  .lightpage {
+    width: 50%;
+    float: left;
+    padding: 0;
+  }
+}

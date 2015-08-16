@@ -1,9 +1,69 @@
-{% extends "base.html" %}
+{% load staticfiles%}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Crunchtime Reviews</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'external/home_style.css' %}" /> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="http://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+  </head>
+  	<body>
+		<div class="container">
+			<div class='title-container'>
+			    <a class='main-title'> Crunchtime Reviews </a>
+			</div>
+
+			<div class='nav-container'>
+			    <ul class="nav">
+			        <li>
+			          <a class = "nav-button" href="sessions/">
+			            <span class="icon fa fa-calendar fa-2x"></span>
+			            <div class="icon-title">Sessions</div>
+			          </a>
+			      	</li>
+			        <li>
+			          <a class = "nav-button" href="gallery/">
+			            <span class="icon fa fa-photo fa-2x"></span>
+			            <div class="icon-title">Gallery</div>
+			          </a></li>
+			        <li>
+			      		<a class = "nav-button" href="ask/">
+			            <span class="icon fa fa-question fa-2x"></span>
+			            <div class="icon-title">Ask</div>
+			          </a>
+			      	</li>
+			        <li>
+			          <a class = "nav-button" href="about/">
+			            <span class="icon fa fa-university fa-2x"></span>
+			            <div class="icon-title">About</div>
+			          </a>
+			        </li>
+			    </ul>
+			</div>​  <!-- End nav-container -->
+			<div class="typer">
+			  <div>
+			    <span
+			     class="txt-rotate"
+			     data-period="1000"
+			     data-rotate='[ "Excellence in education", 
+			     "Best review sessions <br> right before your test",
+			     "Check out our sessions above", 
+			     "No session for your test? <br> Request one!",
+			     "Or check out awesome videos <br> in the gallery",
+			     "Or just stare at this page...",
+			     "Seriously though shoulnd`t you be studying?",
+			     "...we have fun here at Crunchtime Reviews"]'>
+			    </span>
+			  </div>
+			</div> <!-- End typer -->
 
 
-{% block content %} 
-	<a href="sessions/">Sessions</a>
-	<a href="gallery/">Gallery</a>
-	<a href="ask/">Ask</a>
-	<a href="about/">About</a>
-{% endblock%}
+
+		</div> <!-- End container -->
+	</body>
+</html>
+
+<script src="{% static 'external/jquery.js'%}"></script>
+<script src="{% static 'external/velocity.min.js'%}"></script>
+<script src="{% static 'external/home_script.js' %}"></script>

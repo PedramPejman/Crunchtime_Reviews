@@ -5,10 +5,13 @@ from datetime import datetime
 class Session(models.Model):
 	course = models.ForeignKey('Course')
 	date = models.DateField()
+	time = models.TimeField()
 	instructor = models.ForeignKey('Instructor')
 	location = models.CharField(max_length=40, null=True)
+	description = models.TextField(default="To prepare for the next examination.")
 	present = models.IntegerField(null=True)
 	status = models.CharField(max_length='5', choices=SESSION_STATUS, default=SESSION_STATUS[0])
+	test_file = models.FileField(null=True)
 	rating = models.FloatField( default=0.0)
 	rating_num = models.IntegerField(default=0)
 
@@ -55,6 +58,7 @@ class Request(models.Model):
 	course = models.ForeignKey('Course')
 	student_id = models.CharField(max_length=10)
 	date = models.DateField()
+	question_file = models.FileField(null=True)
 	description = models.TextField(default=None)
 	note = models.TextField(default=None)
 
