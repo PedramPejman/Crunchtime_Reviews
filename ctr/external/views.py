@@ -57,8 +57,11 @@ def sessions_request(request):
 
 
 def gallery_show(request):
+	BOX_HEIGHT = 162
+	BOX_OFFSET = 100
 	courses = Course.objects.all()
-	return render_to_response('gallery/show_courses.html',{'courses':courses})
+	div_height = BOX_HEIGHT * len(courses) + BOX_OFFSET
+	return render_to_response('gallery/show_courses.html',{'courses':courses, 'div_height':div_height})
 
 def gallery_show_units(request, course_code):
 	course = Course.objects.filter(code=course_code)
