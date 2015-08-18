@@ -1,14 +1,28 @@
-{% extends "base.html" %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'external/gallery/gallery_videos_style.css' %}" />
 
+<div class='page-title'>{{unit}}</div>
 
-{% block content %} 
-	<ul id="videos">
-		{% for video in videos %}
-			<li>
-			{%if video.section%}
-				{{video.section}} - 
-			{%endif%}
-			{{video.title}}</li>
-		{% endfor%}
-	</ul>
-{% endblock%}
+{% for video in videos %}
+<div class='row'>
+	<div id="{{video.id}}{{'-'|add:video.title|slugify}}" class='video'>
+		<a class='lazy-load' href="{{video.video_url}}">
+			<img class= 'loading_pic' id = 'loading' alt='' src='{{video.picture_url}}'/>
+		</a>
+	</div>
+	<div class='column description'>
+		<h2 class= 'description_title'>{{video.title}}</h2>
+		<p class = 'description_text'>{{video.description}}</p>
+	</div>
+</div>
+{% endfor%}
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="{% static 'external/gallery/gallery_videos_script.js' %}"></script>
+<script src="{% static 'external/velocity.min.js'%}"></script>
+
+<script>
+{% if id%}
+$("#{{id}}{{'-'|add:title|slugify}}").delay(1000).velocity("scroll", 1000);
+{% endif %}
+</script>

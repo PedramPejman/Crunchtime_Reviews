@@ -1,6 +1,8 @@
 from external.models import *
 
-d1 = '2015-02-10'
+//CREATE videos and link them to courses
+
+
 
 c1 = Course(name='General Chemistry', code='CHEM1610')
 c1.save()

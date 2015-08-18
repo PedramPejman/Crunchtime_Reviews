@@ -1,0 +1,130 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,900);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  background: #eee;
+}
+
+.content-container {
+}
+
+.image-wrapper {
+    width: 90%;
+    margin-left: 5%;
+    border-style: solid;
+    border-width: thin 0px thin 0px;
+    border-color: rgba(100,100,100,.2);
+    margin-top: 3%;
+    padding-top: 1%;
+    margin-bottom: 3%;
+    padding-bottom: 1%;
+}
+
+.mac-screen {
+    position: relative;
+    max-width: 60%;
+    left:20%;
+    max-height:100%;
+}
+
+.title-container {
+  width: 50%;
+  text-align: center;
+  margin-left: 25%;
+}
+
+.main-title {
+  font-size: 5em;
+  font-weight: 100;
+  position: relative;
+  font-size: 76px;
+  font-weight: 100;
+  line-height: 2.0556;
+  letter-spacing: -0.064em;
+}
+
+.gallery-courses-container {
+    z-index:-2;
+    width:50%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.courses {
+    display: block;
+    padding: 0 30px 30px 30px;
+    width:340px;
+    margin: auto;
+}
+
+.course-name-container {
+    position: relative;
+	color: #333;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.45;
+    font-weight: 400;
+    text-align: center;
+    width: 320px;
+    height: 162px;
+    margin:20px;
+}
+
+.course-name-container .top-bottom-border {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    margin-left: 5%;
+    margin-top:-10px;
+    border-style: solid;
+    border-width: thin 0px thin 0px;
+    border-color: rgba(100,100,100,.2);
+    z-index:-1;
+}
+
+.course-name-container .left-right-border {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    border-style: solid;
+    border-width: 0px thin 0px thin;
+    border-color: rgba(100,100,100,.2);
+    z-index:-1;
+}
+
+.headline {
+	font-size: 56px;
+    line-height: 1.0556;
+    font-weight: 200;
+    margin-bottom: -1px;
+    margin: 0 0 0.15em 0;
+    letter-spacing: -0.014em;
+    text-align: center;
+}
+
+.course-name-container .subheadline {
+	font-size: 28px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 200;
+    margin-bottom: 12px;
+}
+
+.course-name-container .more .review{
+    position:relative;
+    z-index:2;
+	font-size: 18px;
+    line-height: 1.1667;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #08c;
+    text-decoration: none;
+}
+
+.course-name-container .more .review:after{ 
+	content: " >";
+}
+

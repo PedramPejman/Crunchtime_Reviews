@@ -8,7 +8,7 @@ urlpatterns = [
 	url(r'^sessions/$', views.sessions_show),
 	url(r'^gallery/$', views.gallery_show),
 	url(r'^gallery/(?P<course_code>\w+)/$', views.gallery_show_units),
-	url(r'^gallery/(?P<course_code>\w+)/(?P<unit>\w+)((#)(?P<id>\d+)(?P<title>\w*)){0,1}/$', views.gallery_show_videos),
+	url(r'^gallery/(?P<course_code>\w+)/(?P<unit>[a-zA-Z0-9\-]+)/((?P<id>\d+)-(?P<title>[a-zA-Z0-9\-]+)){0,1}/$', views.gallery_show_videos),
 	url(r'^ask/$', views.ask),
 	url(r'^about/$', views.about),
 ]

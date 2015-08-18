@@ -7,7 +7,7 @@ from external.models import *
 import calendar
 
 def sessions_show(request):
-	recent_sessions = Session.objects.filter(date__gte= (datetime.now() - timedelta(days=7)))[:5]
+	#recent_sessions = Session.objects.filter(date__gte= (datetime.now() - timedelta(days=7)))[:5]
 	sessions = Session.objects.all()
 	today = datetime.today()
 	cal = calendar.Calendar()
@@ -73,15 +73,18 @@ def gallery_show_units(request, course_code):
 	for video in raw_videos:
 		if not video.unit in videos: videos[video.unit] = [video]
 		else: videos[video.unit].append(video)
-	return render_to_response('gallery/show_units.html', {'videos': videos, 'course': course})
+	return render_to_response('gallery/show_units.html', {'videos': videos, 'course': course[0]})
 
 def gallery_show_videos(request, course_code, unit, title, id):
+	unit = unit.replace("-", " ").capitalize()
+	print(unit, title, id)
 	course = Course.objects.filter(code=course_code)
-	videos = Video.objects.filter(course=course).filter(unit=unit)
+	videos = Video.objects.filter(course=course).filter(unit__iexact=unit)
 	if not videos:
 		return Http404("Video not found")
 	
-	return render_to_response('gallery/show_videos.html', {'videos': videos})
+	return render_to_response('gallery/show_videos.html', {'videos': videos, 'unit': unit, 
+		'title': title, 'id': id})
 
 def ask(request):
 	return render_to_response('ask/index.html',{})

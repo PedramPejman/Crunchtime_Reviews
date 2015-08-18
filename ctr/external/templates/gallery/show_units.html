@@ -2,19 +2,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'external/gallery/gallery_units_style.css' %}" />
 
 <div class='page-title'> 
-{{course.name}} Videos
+{{course.name}}
 </div>
 <div class='units-container'>
 	<ul class='units-list'>
 		{% for unit, unit_videos in videos.items %}
 		<li class='unit-container'>
 			<div class='unit-title-container'>
-				<a class='headline' href="{{unit}}">Unit {{unit}}</a>
+				<a class='headline' href="{{unit|slugify}}">{{unit}}</a>
 			</div>
 			<div class='unit-items-container'>
 				<ul class= 'section-list'>
 					{% for video in unit_videos%}
-					<li class='section'><a class = 'section-text' href="{{unit}}{{'#'|safe}}{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.section|add:" - "|add:video.title}}</a></li>
+					<li class='section'><a class = 'section-text' href="{{unit|slugify}}/{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.section|add:" - "|add:video.title}}</a></li>
 					{% endfor %}
 				</ul>
 			</div>

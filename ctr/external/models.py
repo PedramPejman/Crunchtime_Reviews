@@ -54,6 +54,12 @@ class Video(models.Model):
 	class Meta:
 		ordering= ['unit', 'title']
 
+	def save(self, *args, **kwargs):
+		if (str(self.unit).isdigit()):
+			self.unit = "Unit " + str(self.unit)
+		super(Video, self).save(*args, **kwargs)
+
+
 class Request(models.Model):
 	course = models.ForeignKey('Course')
 	student_id = models.CharField(max_length=10)
