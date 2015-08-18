@@ -133,6 +133,12 @@
   display: none;
 }
 
+#error {
+  color: rgba(250, 40, 40, .7);
+  display: none;
+  padding: 5% 0px 5% 0px;
+}
+
 .sign-up-button:active {
   top: 1px;
   outline: none;

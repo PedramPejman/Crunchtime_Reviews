@@ -73,7 +73,7 @@ def gallery_show_units(request, course_code):
 	for video in raw_videos:
 		if not video.unit in videos: videos[video.unit] = [video]
 		else: videos[video.unit].append(video)
-	return render_to_response('gallery/show_units.html', {'videos': videos})
+	return render_to_response('gallery/show_units.html', {'videos': videos, 'course': course})
 
 def gallery_show_videos(request, course_code, unit, title, id):
 	course = Course.objects.filter(code=course_code)

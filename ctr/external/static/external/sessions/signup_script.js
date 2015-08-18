@@ -11,7 +11,8 @@ $('.submit-button').click(function() {
   (document.getElementById('sign-me-up')).innerHTML = "Sign Me Up!" ;
   $('#student-id').show();
   $('#thank-you-note').hide();
-    
+  submit_callback = submit_button_clicked;
+
   $('#sign-up-overlay').fadeIn(1000);
   $('#overlay-container').fadeIn(500);   
 });
@@ -20,16 +21,23 @@ function submit_button_clicked(e) {
   e.preventDefault();
   var button = $('#sign-me-up');
   var email = (document.getElementById('student-id').value);
-  switch_buttons_animation(button, email);
-  submit_callback = close_overlay;
+  validate(button, email, switch_buttons_animation, failure_animation);
 }
 
-$('#sign-up-overlay').unbind('submit').submit(function(e){submit_callback(e)});
+function validate(button, email, onSucces, onFailure) {
+  $.ajax({ url: '.',
+         //data: {action: 'send_email', student_id: email, course: current_overlay_course, date: current_overlay_date, session_id: current_overlay_id},
+         type: 'get',
+         success: function() {
+          onSucces(button, email);
+          submit_callback = close_overlay;
+                  },
+          error: function() {
+            failure_animation(button, email);
+          }
+        });
+}
 
-$('#close-icon').click(function() {
-  close_overlay(null);
-})  
-  
 function close_overlay(e) {
   if (e != null) {
     e.preventDefault();
@@ -52,6 +60,27 @@ function switch_buttons_animation(button, email) {
   button.fadeIn(500, function() {
   });
 }
+
+function failure_animation(button, email) {
+  button.fadeOut(1000, function() {
+    (document.getElementById('sign-me-up')).innerHTML = "<img src='http://jimpunk.net/Loading/wp-content/uploads/loading81.gif' width='50' height='50'>" ;
+  });
+  button.fadeIn(500, function() {
+    $('#error').show(1000);
+  });
+  button.delay(500).fadeOut(500, function() { 
+    (document.getElementById('sign-me-up')).innerHTML = "Sign Me Up!" ;
+  });
+  button.fadeIn(500, function() {
+  });
+}
+
+$('#sign-up-overlay').unbind('submit').submit(function(e){submit_callback(e)});
+
+$('#close-icon').click(function() {
+  close_overlay(null);
+})  
+
 
  /* $.ajax({ url: './sendEmail.php',
          data: {action: 'send_email', student_id: email, course: current_overlay_course, date: current_overlay_date, session_id: current_overlay_id},

@@ -48,23 +48,29 @@ TxtRotate.prototype.tick = function() {
   this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
 
   var that = this;
-  var delta = 200 - Math.random() * 100;
+  var delta = 100 - Math.random() * 100;
 
   if (this.isDeleting) { delta /= 2; }
 
   if (!this.isDeleting && this.txt === fullTxt) {
+    //delta = 0;
     delta = this.period;
+    blink()
     this.isDeleting = true;
   } else if (this.isDeleting && this.txt === '') {
     this.isDeleting = false;
     this.loopNum++;
-    delta = 500;
+    delta = 100;
   }
 
   setTimeout(function() {
     that.tick();
   }, delta);
 };
+
+function blink() {
+
+}
 
 window.onload = function() {
   var elements = document.getElementsByClassName('txt-rotate');

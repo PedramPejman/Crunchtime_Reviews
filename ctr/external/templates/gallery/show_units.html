@@ -1,16 +1,24 @@
-{% extends "base.html" %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'external/gallery/gallery_units_style.css' %}" />
 
-
-{% block content %} 
-	<ul id="units">
+<div class='page-title'> 
+{{course.name}} Videos
+</div>
+<div class='units-container'>
+	<ul class='units-list'>
 		{% for unit, unit_videos in videos.items %}
-			<li><a href="{{unit}}">{{unit}}</a></li>
-			<ul id="videos">
-				{% for video in unit_videos%}
-					<li><a href="{{unit}}{{'#'|safe}}{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.section|add:" - "|add:video.title}}</a></li>
-				{% endfor %}
-					
-			</ul>
+		<li class='unit-container'>
+			<div class='unit-title-container'>
+				<a class='headline' href="{{unit}}">Unit {{unit}}</a>
+			</div>
+			<div class='unit-items-container'>
+				<ul class= 'section-list'>
+					{% for video in unit_videos%}
+					<li class='section'><a class = 'section-text' href="{{unit}}{{'#'|safe}}{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.section|add:" - "|add:video.title}}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
 		{% endfor %}
 	</ul>
-{% endblock%}
+</div>

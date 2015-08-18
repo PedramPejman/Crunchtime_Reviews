@@ -10,16 +10,33 @@ html {
   .vertical-align: middle;
 }
 
-.title-container {
-  width: 100%;
-  text-align: center;
+.nav-container {
+  margin-top: 5%;
 }
 
-.main-title {
-  display: inline-block;
+.title-container {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 3%;
+}
+
+.headline {
+  display: block;
   font-size: 5em;
+  line-height: 1.0556;
+  letter-spacing: 0.014em;
   font-weight: 100;
   position: relative;
+}
+
+.subheadline {
+  font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 100;
+    letter-spacing: 0.114em;
+    margin-bottom: 12px;
 }
 
 .nav {
@@ -98,9 +115,8 @@ html {
 }
 
 .typer {
-  font-family: 'Raleway', sans-serif;
   padding: 1em 2em;
-  font-size: 12px;
+  font-size: 8px;
   color: #000;
   text-align: center;
 }
@@ -108,6 +124,6 @@ html {
 
 .typer div { 
   font-size: 3.5em;   
-  font-weight: 100;
+  font-weight: 200;
   margin: 0.4em 0;
 }
