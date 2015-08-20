@@ -51,7 +51,7 @@ html {
 
 .nav .icon-title {
   position:relative;
-  top:-120px;
+  top:-110px;
 }
 
 .nav li {
@@ -91,6 +91,7 @@ html {
   border-radius: 50%;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
   border: solid 1px transparent;
+  transition: color .5s;
 }
 
 .nav a:before {
@@ -112,12 +113,13 @@ html {
   text-decoration: none;
   color: #555;
   background: #f5f5f5;
+
 }
 
 .typer {
   padding: 1em 2em;
-  font-size: 8px;
-  color: #000;
+  font-size: 6px;
+  color: rgba(0,0,0,.5);
   text-align: center;
 }
 

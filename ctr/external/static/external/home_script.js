@@ -1,4 +1,4 @@
-$('.nav-button').hover(show_nav_label, hide_nav_label);
+/*$('.nav-button').hover(show_nav_label, hide_nav_label);
 
 
 //HELPER FUNCTIONS
@@ -19,6 +19,7 @@ function hide_nav_label() {
 		duration: 600
 	});
 }
+*/
 
 //Typer
 var TxtRotate = function(el, toRotate, period) {

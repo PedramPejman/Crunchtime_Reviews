@@ -102,6 +102,7 @@
 
 .btn-prev,
 .btn-next {
+	visibility: hidden;
 	border: 2px solid #cbd1d2;
 	border-radius: 50%;
 	color: #cbd1d2;

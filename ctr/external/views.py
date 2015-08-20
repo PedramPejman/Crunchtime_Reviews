@@ -45,15 +45,25 @@ def calendar_show(request):
 		'month_name':month_name})	
 
 def sessions_request(request):
+	accepted = False
+	errors = None
+	courses = Course.objects.all()
+	print(courses)
 	if request.method == 'POST':
 		request_form = RequestForm(request.POST)
 		if request_form.is_valid():
-			return HttpResponse('Done')
+			accepted = True
+			request_form.save()
 		else:
-			return HttpResponse("Not a valid form")
+			if (request_form.errors):
+				errors = request_form.errors
+				print(errors)
+			else:
+				return HttpResponse("Somebody broke this...")
 	else:
 		request_form = RequestForm()
-	return render(request, 'sessions/request.html', {'form':request_form})
+	return render(request, 'sessions/request.html', {'form':request_form, 'accepted': accepted, 
+		'errors': errors, 'courses': courses})
 
 
 def gallery_show(request):
