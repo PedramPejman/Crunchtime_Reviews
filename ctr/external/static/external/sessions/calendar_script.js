@@ -12,7 +12,6 @@ $( ".sexytabs" ).on( "tabsactivate", function( event, ui ) {
 		    var session = $("*[data-day='" + day +"']");
 		    console.log(session);
 		    setTimeout(function() {
-		    	alert(session);
 		    	session.click();
 		    }, 150);
 		    that = null;
