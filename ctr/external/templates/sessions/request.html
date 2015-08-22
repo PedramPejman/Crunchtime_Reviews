@@ -48,16 +48,16 @@
 	    
 	    <fieldset class="form-fieldset ui-input __fifth">
 	      <select name="course" id="course" name="course" tabindex="0">
-	      {{form.course.errors}} Error
-	      <label for="course">
-	        <span data-text="Course">Course</span>
-	        
-	      </label>
 	        <option>Please choose a course</option>
 	        {% for course in courses%}
 	        	<option value="{{course.id}}">{{course.code}}: {{course.name}}</option>
 	        {% endfor %}
+	        </select>
+	        <label for="course">
+		        {{form.course.errors}}
+	      	</label>
 	    </fieldset>
+
 
 	    <div class="form-footer">
 	      <input type="submit" class="btn" value="Request" />

@@ -66,7 +66,7 @@ class Request(models.Model):
 	date = models.DateField()
 	question_file = models.FileField(null=True)
 	description = models.TextField(default=None)
-	note = models.TextField(default=None)
+	note = models.TextField(blank=True)
 
 	def __str__(self):
 		return "Request by %s for %s " % (self.student_id, self.course)
