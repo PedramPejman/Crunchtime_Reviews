@@ -48,7 +48,6 @@ def sessions_request(request):
 	accepted = False
 	errors = None
 	courses = Course.objects.all()
-	print(courses)
 	if request.method == 'POST':
 		request_form = RequestForm(request.POST)
 		if request_form.is_valid():
@@ -57,7 +56,6 @@ def sessions_request(request):
 		else:
 			if (request_form.errors):
 				errors = request_form.errors
-				print(errors)
 			else:
 				return HttpResponse("Somebody broke this...")
 	else:
@@ -74,7 +72,6 @@ def gallery_show(request):
 	for course in courses:
 		if len(course.video_set.all()) > 0:
 			refined_courses.append(course)
-	print(courses)
 	div_height = BOX_HEIGHT * len(refined_courses) + BOX_OFFSET
 	return render_to_response('gallery/show_courses.html',{'courses':refined_courses, 'div_height':div_height})
 
@@ -92,7 +89,6 @@ def gallery_show_units(request, course_code):
 
 def gallery_show_videos(request, course_code, unit, title, id):
 	unit = unit.replace("-", " ").capitalize()
-	print(unit, title, id)
 	course = Course.objects.filter(code=course_code)
 	videos = Video.objects.filter(course=course).filter(unit__iexact=unit)
 	if not videos:
@@ -102,7 +98,25 @@ def gallery_show_videos(request, course_code, unit, title, id):
 		'title': title, 'id': id})
 
 def ask(request):
-	return render_to_response('ask/index.html',{})
+	accepted = False
+	errors = None
+	courses = Course.objects.all()
+	if request.method == 'POST':
+		question_form = QuestionForm(request.POST, request.FILES)
+		print(question_form)
+		if question_form.is_valid():
+			accepted = True
+			question_form.save()
+		else:
+			if (question_form.errors):
+				errors = question_form.errors
+			else:
+				return HttpResponse("Somebody broke this...")
+	else:
+		question_form = QuestionForm()
+	return render(request, 'ask/ask.html', {'form':question_form, 'accepted': accepted, 
+		'errors': errors, 'courses': courses})
+
 
 def about(request):
 	return render_to_response('about/index.html',{})

@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'external/ask/ask_style.css' %}" />
+
+{% if accepted %}
+	<h1>Thank You!</h1>
+	<div class="container">
+	<h2>Now attend your course's review session to get your question fully answered! If no sessions are scheduled for your test, <a href='../sessions/request/'>request</a> one!</h2>
+	<br><br>
+	<a href="../../" class='btn'>Return Home</a>
+	</div>
+{% else %}
+	<h1>Ask Away</h1>
+	<div class='subtitle'>Ask any questions you would like to see worked out during the next review session.</div>
+	<div class="container" >
+	  <form class="form" action="" method="post" enctype="multipart/form-data">
+	        {% csrf_token %}
+	    <fieldset class="form-fieldset ui-input __first">
+	      <input type="text" id="student_id" name="student_id" tabindex="0" />
+	      <label for="student_id">
+	        <span data-text="Student ID">Student ID</span>
+	        {{form.student_id.errors}}
+	      </label>
+	    </fieldset>
+
+	    <fieldset class="form-fieldset ui-input __second">
+	      <select class='different-input' name="course" id="course" name="course" tabindex="0">
+	        <option>Please choose a course</option>
+	        {% for course in courses%}
+	        	<option value="{{course.id}}">{{course.code}}: {{course.name}}</option>
+	        {% endfor %}
+	        </select>
+	        <label for="course">
+		        {{form.course.errors}}
+	      	</label>
+	    </fieldset>
+
+	    <fieldset class="form-fieldset ui-input __third">
+	      <textarea class='different-input' type="text" id="text" name="text" rows="4" cols="50"></textarea>
+	      <label for="text">
+	        <span data-text="Describe Your Problem">Describe Your Problem</span>
+	        {{form.text.errors}}
+	      </label>
+	    </fieldset>
+	    
+	    <fieldset class="form-fieldset ui-input __fourth">
+	      <input type="text" id="note" name="note"/>
+	      <label for="note">
+	        <span data-text="Additional Notes">Additional Notes</span>
+	        {{form.note.errors}}
+	      </label>
+	    </fieldset>
+
+	    <fieldset class="form-fieldset ui-input __fifth">
+		    <div class="file-upload">
+			  <div class="file-select">
+			    <div class="file-select-button" id="fileName">Choose File</div>
+			    <div class="file-select-name" id="noFile">Got a Picture? Attach it!</div> 
+			    <input type="file" name="attachment" id="attachment">
+			    {{form.attachment.errors}}
+			  </div>
+			</div>
+	    </fieldset>
+
+
+	    <div class="form-footer">
+	      <input type="submit" class="btn" value="Request" />
+	    </div>
+	  </form>
+	</div>
+{% endif %}
+
+<script src="{% static 'external/jquery.js'%}"></script>
+<script src="{% static 'external/ask/ask_script.js'%}"></script>

@@ -5,6 +5,7 @@ from datetime import datetime
 class Session(models.Model):
 	course = models.ForeignKey('Course')
 	date = models.DateField()
+	date_created = models.DateField(auto_now_add=True)
 	time = models.TimeField()
 	instructor = models.ForeignKey('Instructor')
 	location = models.CharField(max_length=40, null=True)
@@ -64,9 +65,24 @@ class Request(models.Model):
 	course = models.ForeignKey('Course')
 	student_id = models.CharField(max_length=10)
 	date = models.DateField()
+	date_created = models.DateField(auto_now_add=True)
 	question_file = models.FileField(null=True)
 	description = models.TextField(default=None)
 	note = models.TextField(blank=True)
 
 	def __str__(self):
 		return "Request by %s for %s " % (self.student_id, self.course)
+
+class Question(models.Model):
+	def courseName(instance, filename):
+		return "%s/%s_%s" % (instance.course.code, 
+			datetime.now().strftime('%Y-%m-%d_%H-%M-%S'), filename)
+
+	course = models.ForeignKey('Course')
+	student_id = models.CharField(max_length=10)
+	date_created = models.DateField(auto_now_add=True)
+	attachment = models.FileField(blank=True, null=True, upload_to=courseName)
+	text = models.TextField(default=None)
+	note = models.TextField(blank=True, null=True)
+
+	
