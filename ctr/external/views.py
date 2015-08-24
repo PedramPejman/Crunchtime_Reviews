@@ -119,4 +119,7 @@ def ask(request):
 
 
 def about(request):
-	return render_to_response('about/index.html',{})
+	instructors = Instructor.objects.all()
+	employees = Employee.objects.all()
+
+	return render_to_response('about/about.html',{'instructors': instructors, 'employees': employees})

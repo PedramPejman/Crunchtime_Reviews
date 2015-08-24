@@ -40,6 +40,13 @@ class Instructor(models.Model):
 	def __str__(self):
 		return "Instructor %s(%s) teaching %s with rating %s" % (self.student_id,self.name, self.courses.all(),self.rating)
 
+class Employee(models.Model):
+	student_id= models.CharField(max_length=10)
+	name = models.CharField(max_length=30)
+	date_joined = models.DateField(default=datetime.now)
+	is_admin = models.BooleanField(default=False)
+	role = models.CharField(max_length=30)
+
 class Video(models.Model):
 	course = models.ForeignKey('Course')
 	title = models.CharField(max_length=50)

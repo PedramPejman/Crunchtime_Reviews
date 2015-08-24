@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html >
+  <head>
+  	<title>About Crunchtime</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>About Us</title>
+        <link rel="stylesheet" href="css/style.css">  
+        <link rel="stylesheet" type="text/css" href="{% static 'external/about/about_style.css' %}" />  
+  </head>
+
+  <body>
+
+<div id="pagewrap">
+
+		<h1 id="title">About Crunchtime</h1>
+	
+	
+	<div id="slogans">	
+		<section class="slogan-item" id="slogan1">
+			<a class="slogan-question">Missed class?</a>
+			<p class="slogan-answer">No problem. Our gallery has you covered.</p>
+		</section>
+		
+		<section class="slogan-item" id="slogan2">
+			<a class="slogan-question">Exam coming up?</a>
+			<p class="slogan-answer">Attend a review session specific to your course. If none scheduled, request one.</p>
+		</section>
+
+		<section class="slogan-item" id="slogan3">
+			<a class="slogan-question">Stuck on questions?</a>
+			<p class="slogan-answer">send us the text or picture of a question and we will answer it in your course's next Crunchtime session.</p>
+		</section>
+	</div>
+	
+	<header id="mission">
+		Our Mission
+	</header>
+
+	<div id="mission-content">
+		Here at Crunchtime, we believe in efficiency above all else. We have a passion for bringing the best quality review material to supplement your education in STEM courses. Our review sessions and videos are designed with the intent to be as efficient and focused as possible. Learning new concepts should not feel like navigating a maze. Our incredible instructors have gone through extensive screening and training to ensure they can help you understand course material as quickly as possible. Give our videos and review sessions a try! 
+	</div>
+
+	<div id="engagement">	
+		<section class="slogan-item" id="slogan1">
+			<a class="slogan-question">Course Suggestions?</a>
+			<p class="slogan-answer">Shoot us an Email. We are always looking for more courses to sponsor.</p>
+		</section>
+		
+		<section class="slogan-item" id="slogan2">
+			<a class="slogan-question">Want to Join Us?</a>
+			<p class="slogan-answer">Talk to any of our team members. We love anyone who is passionate about education.</p>
+		</section>
+
+		<section class="slogan-item" id="slogan3">
+			<a class="slogan-question">Any Comments?</a>
+			<p class="slogan-answer">Send us an Email and one of our team members will contact you ASAP!</p>
+		</section>
+	</div>
+
+	<div id="email-content">Reach us at <a id="email">CrunchtimeSupport@virginia.edu</a></div>
+
+	<header id="team">
+		Our Team
+	</header>
+
+	<div id="team-content">
+		{% for employee in employees%}
+	    <figure class="employee">
+	      <img class="employee-img" src="http://500px.com/graphics/pages/team/squares/oleg.jpg">
+	      <figcaption class="employee-info">
+	        <div class="employee-name">{{employee.name}}</div>
+	        <div class="employee-role">{{employee.role}}</div>
+	      </figcaption>
+	    </figure>
+	    {% endfor %}
+	    {% for instructor in instructors%}
+	    <figure class="employee">
+	      <img class="employee-img" src="http://500px.com/graphics/pages/team/squares/oleg.jpg">
+	      <figcaption class="employee-info">
+	        <div class="employee-name">{{instructor.name}}</div>
+	        <div class="employee-role">Instructor</div>
+	      </figcaption>
+	    </figure>
+	    {% endfor %}
+  	</div> <!--End of team-content-->
+
+</div> <!--End of page-wrap-->
+    
+    
+    
+    
+    
+  </body>
+</html>
