@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .statics import SESSION_STATUS
 from datetime import datetime
 
@@ -30,6 +31,7 @@ class Course(models.Model):
 		return "Course %s: %s" % (self.code, self.name)
 
 class Instructor(models.Model):
+	user = models.OneToOneField(User, default=0)
 	student_id = models.CharField(max_length=10)
 	name = models.CharField(max_length=30)
 	date_joined = models.DateField(default=datetime.now)
@@ -41,6 +43,7 @@ class Instructor(models.Model):
 		return "Instructor %s(%s) teaching %s with rating %s" % (self.student_id,self.name, self.courses.all(),self.rating)
 
 class Employee(models.Model):
+	user = models.OneToOneField(User, default=0)
 	student_id= models.CharField(max_length=10)
 	name = models.CharField(max_length=30)
 	date_joined = models.DateField(default=datetime.now)
