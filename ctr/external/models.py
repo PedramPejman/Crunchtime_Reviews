@@ -32,23 +32,25 @@ class Course(models.Model):
 
 class Instructor(models.Model):
 	user = models.OneToOneField(User, default=0)
-	student_id = models.CharField(max_length=10)
-	name = models.CharField(max_length=30)
 	date_joined = models.DateField(default=datetime.now)
 	courses = models.ManyToManyField('Course')
 	rating = models.FloatField( default=0.0)
 	rating_num = models.IntegerField(default=0)
 
+	def name(self):
+		return "%s %s" % (self.user.first_name, self.user.last_name)
+	
 	def __str__(self):
 		return "Instructor %s(%s) teaching %s with rating %s" % (self.student_id,self.name, self.courses.all(),self.rating)
 
 class Employee(models.Model):
 	user = models.OneToOneField(User, default=0)
-	student_id= models.CharField(max_length=10)
-	name = models.CharField(max_length=30)
 	date_joined = models.DateField(default=datetime.now)
 	is_admin = models.BooleanField(default=False)
 	role = models.CharField(max_length=30)
+
+	def name(self):
+		return "%s %s" % (self.user.first_name, self.user.last_name)
 
 class Video(models.Model):
 	course = models.ForeignKey('Course')
