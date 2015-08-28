@@ -130,6 +130,11 @@ h2 {
   color: #fff;
   background: #2DA5EE;
 }
+#nav ul li.signout a {
+  color: #fff;
+  background: rgba(200,20,30,.7);
+}
+
 
 #main {
   margin-left: 180px;

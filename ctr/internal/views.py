@@ -1,12 +1,12 @@
 from django.shortcuts import render, render_to_response, HttpResponseRedirect
 from django.http import HttpResponse, Http404
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout as django_logout
 from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
+from datetime import datetime, timedelta
 from .forms import *
 from external.models import *
 
-# Create your views here.
 def login(request):
 	error = None
 	if request.method == 'POST':
@@ -20,6 +20,11 @@ def login(request):
 			error="Incorrect username or password"
 	return render(request, 'auth/login.html',{'error': error}) 
 
+def logout(request):
+	if request.user:
+		django_logout(request)
+	return HttpResponseRedirect('/.')
+
 @login_required
 def dashboard(request):
 	if (len(Employee.objects.filter(user=request.user))):
@@ -27,9 +32,43 @@ def dashboard(request):
 	if (len(Instructor.objects.filter(user=request.user))):
 		return instructor_dashboard(request)
 	return HttpResponse("Who are you??")
-	
-def employee_dashboard(request):
-	return render(request, 'internal/home.html')
 
+#HELPER	
+def employee_dashboard(request):
+	return render(request, 'internal/home.html', {})
+
+#HELPER
 def instructor_dashboard(request):
-	return render(request, 'internal/home.html')
+	user = request.user
+	if not user: return Http404('Error')
+	
+	today = datetime.today()
+
+	instructor = Instructor.objects.get(user=user)
+	sessions = instructor.session_set.all()
+	
+	upcoming_sessions = sessions.filter(date__gte=today).values()
+	previous_sessions = sessions.filter(date__lt=today).values()
+
+	print(previous_sessions)
+	for session in previous_sessions:
+		print(session)
+		session['rating_percent'] = session['rating'] * 20
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+
+
+
+	return render(request, 'internal/home.html', {'user': user, 'rating': rating, 
+		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
+		'previous_sessions': previous_sessions})
+
+def inbox(request):
+	pass
+
+def sessions(request):
+	pass
+
+def settings(request):
+	pass
