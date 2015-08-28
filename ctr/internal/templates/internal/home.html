@@ -1,0 +1,132 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Haus Dashboard</title>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{%static 'internal/home_style.css'%}">
+  </head>
+  <body>    
+    <div id="nav">
+      <div class="user-banner"><img src="http://bit.ly/1jFjKGa"/>
+        <h5 class="username">Kyle Jones</h5>
+      </div>
+      <ul>
+        <li class="head"></li>
+        <li class="active"><a href="#"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="#"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li><a href="#"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li><a href="#"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href="#"><span>Rating</span></a></li>
+        <div class="progress clear-right">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 92.6%;" class="progress-bar">4.63<span class="sr-only">70% Complete</span></div>
+        </div>
+      </ul>
+    </div>
+    <div id="main">
+      <header>
+        Welcome to Your Dashboard
+      </header>
+      <div id="content">
+        <h1 class="section-title">Upcoming Sessions</h1>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="box property-glance">
+              <div class="header">
+                <h4 class="pull-left">08/27/2015 <small>6:30 PM</small></h4><span class="pull-right">APMA 2120</span>
+                <div class="progress clear-right">
+                  <div role="progressbar" style="width: 100%;" class="progress-bar no-rating">No Rating Yet</div>
+                </div>
+                <div class="clear-left"><i class="fa fa-map-marker"></i><span>Thornton E303</span></div>
+              </div>
+              <div class="body">
+                <div class="row">
+                  <div class="col-sm-6 statistic text-center">
+                    <small>This is some description about the session to serve as explaination</small>
+                  </div>
+                  <div class="col-sm-6 text-center">
+                    <h1>18</h1><small>In Attendance</small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div data-toggle="email" data-placement="bottom" title="Send Email" class="col-sm-4 col-xs-6 widget"><i class="fa fa-comments-o"></i></div>
+                  <div data-toggle="statistics" data-placement="bottom" title="Session Statistics" class="col-sm-4 col-xs-6 widget"><i class="fa fa-line-chart"></i></div>
+                  <div data-toggle="attendance" data-placement="bottom" title="Enter Attendance" class="col-sm-4 col-xs-6 widget"><i class="fa fa-list"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h1 class="section-title">Previous Sessions</h1>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="box property-glance">
+              <div class="header">
+                <h4 class="pull-left">08/27/2015</h4><span class="pull-right">APMA 2120</span>
+                <div class="progress clear-right">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 92.6%;" class="progress-bar">4.63<span class="sr-only">70% Complete</span></div>
+                </div>
+                <div class="clear-left"><i class="fa fa-map-marker"></i><span>Thornton E303</span></div>
+              </div>
+              <div class="body">
+                <div class="row">
+                  <div class="col-sm-6 statistic text-center">
+                    <small>This is some description about the session to serve as explaination</small>
+                  </div>
+                  <div class="col-sm-6 text-center">
+                    <h1>18</h1><small>Attended</small>
+                  </div>
+                </div>
+                <div class="row">
+                  <div data-toggle="email" data-placement="bottom" title="Send Email" class="col-sm-4 col-xs-6 widget"><i class="fa fa-comments-o"></i></div>
+                  <div data-toggle="email" data-placement="bottom" title="Session Statistics" class="col-sm-4 col-xs-6 widget"><i class="fa fa-line-chart"></i></div>
+                  <div data-toggle="attendance" data-placement="bottom" title="Download Attendance Sheet" class="col-sm-4 col-xs-6 widget"><i class="fa fa-file-excel-o"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>Recent Requests</h1>
+            <div style="margin-top: 20px;" class="box">
+              <div class="body">
+                <p>There are no requests for your course!</p>
+              </div>
+            </div>
+            <div class="timeline">
+              <div class="item">
+                <div class="circle"></div>
+                <div class="message">
+                  <Here><h4>CHEM 1620</h4>pp5nv: We have an exam coming up in 3 days on chemicaly stuff. Help!</Here>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">   
+            <h1>Recent Comments</h1>
+            <div style="margin-top: 20px;" class="box">
+              <div class="body">
+                <p>You have no recent comments!</p>
+              </div>
+            </div>
+            <div class="timeline">
+              <div class="item">
+                <div class="circle"></div>
+                <div class="message">
+                  <Here>You are awesome Mr. Kyle. Keep up the good work!</Here>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+    <script src="{%static 'internal/home_Script.js' %}"></script>  
+  </body>
+</html>

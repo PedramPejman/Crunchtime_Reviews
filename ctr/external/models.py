@@ -36,12 +36,18 @@ class Instructor(models.Model):
 	courses = models.ManyToManyField('Course')
 	rating = models.FloatField( default=0.0)
 	rating_num = models.IntegerField(default=0)
+	role = models.CharField(max_length=30, default="Instructor")
 
+	@property
 	def name(self):
 		return "%s %s" % (self.user.first_name, self.user.last_name)
+
+	@name.setter
+	def name(self, value):
+		pass
 	
 	def __str__(self):
-		return "Instructor %s(%s) teaching %s with rating %s" % (self.student_id,self.name, self.courses.all(),self.rating)
+		return "Instructor %s(%s) teaching %s with rating %s" % (self.user.username, self.name, self.courses.all(),self.rating)
 
 class Employee(models.Model):
 	user = models.OneToOneField(User, default=0)
@@ -49,8 +55,13 @@ class Employee(models.Model):
 	is_admin = models.BooleanField(default=False)
 	role = models.CharField(max_length=30)
 
+	@property
 	def name(self):
 		return "%s %s" % (self.user.first_name, self.user.last_name)
+
+	@name.setter
+	def name(self, value):
+		pass
 
 class Video(models.Model):
 	course = models.ForeignKey('Course')

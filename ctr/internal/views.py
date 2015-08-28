@@ -29,7 +29,7 @@ def dashboard(request):
 	return HttpResponse("Who are you??")
 	
 def employee_dashboard(request):
-	return HttpResponse("Hello Employee")
+	return render(request, 'internal/home.html')
 
 def instructor_dashboard(request):
-	return HttpResponse("Hello Instructor")
+	return render(request, 'internal/home.html')
