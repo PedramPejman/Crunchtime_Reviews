@@ -3,7 +3,7 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Crunchtime Dashboard</title>
+    <title>Sessions Controller</title>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
     <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
@@ -15,9 +15,9 @@
       </div>
       <ul>
         <li class="head"></li>
-        <li class="active"><a href=""><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="/internal/home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
         <li><a href="/internal/inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
-        <li><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li class="active"><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
         <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
         <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
         <li class="rating-title"><a href="#"><span></span></a></li>
@@ -34,7 +34,7 @@
     </div>
     <div id="main">
       <header>
-        Welcome to Your Dashboard
+        <span class="header-title">Sessions</span> <small>Schedule sessions and </small>
       </header>
       <div id="content">
         <h1 class="section-title">Upcoming Sessions</h1>

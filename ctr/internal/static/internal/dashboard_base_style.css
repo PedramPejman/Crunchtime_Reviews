@@ -1,5 +1,10 @@
 /** MAIN CSS **/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400);
 
+header .header-title {
+  font-size:25px;
+  margin-right: 10px;
+}
 .rating-title a:hover {
   cursor: default;
   background: black; 
@@ -59,8 +64,9 @@ html, body {
 body {
   padding: 0;
   margin: 0;
-  font: 14px/20px "Proxima Nova", "Helvetica Neue", arial, sans-serif;
-  color: #676e74;
+    font-family: Lato;
+  font-weight: 300;
+  color: rgba(10,10,10,.8);
   background: #E9EEF1;
 }
 

@@ -11,7 +11,7 @@ class Session(models.Model):
 	instructor = models.ForeignKey('Instructor')
 	location = models.CharField(max_length=40, null=True)
 	description = models.TextField(default="To prepare for the next examination.")
-	present = models.IntegerField(null=True)
+	present = models.IntegerField(default=0)
 	status = models.CharField(max_length='5', choices=SESSION_STATUS, default=SESSION_STATUS[0])
 	test_file = models.FileField(null=True)
 	rating = models.FloatField( default=0.0)

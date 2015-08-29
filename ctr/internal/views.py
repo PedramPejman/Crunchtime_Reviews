@@ -50,25 +50,28 @@ def instructor_dashboard(request):
 	upcoming_sessions = sessions.filter(date__gte=today).values()
 	previous_sessions = sessions.filter(date__lt=today).values()
 
-	print(previous_sessions)
 	for session in previous_sessions:
-		print(session)
 		session['rating_percent'] = session['rating'] * 20
 
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
 
+	requests = Request.objects.filter(course__in=instructor.courses.all())
+	questions = Question.objects.filter(course__in=instructor.courses.all())
 
 
 	return render(request, 'internal/home.html', {'user': user, 'rating': rating, 
 		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
-		'previous_sessions': previous_sessions})
+		'previous_sessions': previous_sessions, 'requests': requests, 'questions': questions})
 
 def inbox(request):
-	pass
+	return render(request, 'internal/inbox.html', {})
 
 def sessions(request):
-	pass
+	return render(request, 'internal/sessions.html', {})
+
+def videos(request):
+	return render(request, 'internal/videos.html', {})
 
 def settings(request):
-	pass
+	return render(request, 'internal/settings.html', {})
