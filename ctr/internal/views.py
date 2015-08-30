@@ -45,6 +45,8 @@ def instructor_dashboard(request):
 	today = datetime.today()
 
 	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+
 	sessions = instructor.session_set.all()
 	
 	upcoming_sessions = sessions.filter(date__gte=today).values()
@@ -65,7 +67,20 @@ def instructor_dashboard(request):
 		'previous_sessions': previous_sessions, 'requests': requests, 'questions': questions})
 
 def inbox(request):
-	return render(request, 'internal/inbox.html', {})
+	user = request.user
+	if not user: return Http404('Error')
+	
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+
+	requests = Request.objects.filter(course__in=instructor.courses.all())
+	questions = Question.objects.filter(course__in=instructor.courses.all())
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+	
+	return render(request, 'internal/inbox.html', {'user': user, 'instructor': instructor, 
+		'requests': requests, 'questions': questions, 'rating': rating, 'rating_percent': rating_percent})
 
 def sessions(request):
 	return render(request, 'internal/sessions.html', {})
@@ -75,3 +90,9 @@ def videos(request):
 
 def settings(request):
 	return render(request, 'internal/settings.html', {})
+
+def sessions_schedule(request):
+	return render(request, 'internal/sessions.html', {})
+
+def videos_post(request):
+	return render(request, 'internal/sessions.html', {})

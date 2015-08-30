@@ -1,0 +1,23 @@
+<div id="nav">
+  <div class="user-banner"><img src="http://bit.ly/1jFjKGa"/>
+    <h5 class="username">{{user.first_name|add:" "|add:user.last_name}}</h5>
+  </div>
+  <ul>
+    <li class="head"></li>
+    <li><a href="/internal/home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+    <li class="active"><a href="/internal/inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+    <li><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+    <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
+    <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+    <li class="rating-title"><a href="#"><span></span></a></li>
+    <li class="rating-title"><a href="#"><span></span></a></li>
+    <li class="rating-title"><a href="#"><span>Rating</span></a></li>
+    <div class="progress clear-right">
+              <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{rating_percent}}%;" class="progress-bar">{{rating}}<span class="sr-only">{{rating_percent}}% Complete</span></div>
+    </div>
+    <li class="rating-title"><a href="#"><span></span></a></li>
+    <li class="rating-title"><a href="#"><span></span></a></li>
+    <li class="rating-title"><a href="#"><span></span></a></li>
+    <li class="signout"><a href="/internal/logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
+  </ul>
+</div>

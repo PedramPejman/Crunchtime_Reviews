@@ -37,74 +37,14 @@
         <span class="header-title">Inbox</span> <small>Check requests and questions that pretain to your course in more detail</small>
       </header>
       <div id="content">
-        <h1 class="section-title">Upcoming Sessions</h1>
-        {% if upcoming_sessions %}
-        {% for session in upcoming_sessions %}
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="box property-glance">
-                <div class="header">
-                  <h4 class="pull-left">{{session.date}} <small> {{session.time}}</small></h4><span class="pull-right">{{session.course.code}}</span>
-                  <div class="progress clear-right">
-                    <div role="progressbar" style="width: 100%;" class="progress-bar no-rating">No Rating Yet</div>
-                  </div>
-                  <div class="clear-left"><i class="fa fa-map-marker"></i><span>{{session.location}}</span></div>
-                </div>
-                <div class="body">
-                  <div class="row">
-                    <div class="col-sm-6 statistic text-center">
-                      <small>{{session.description}}</small>
-                    </div>
-                    <div class="col-sm-6 text-center">
-                      <h1>{{session.attendance}}</h1><small>In Attendance</small>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div data-toggle="email" data-placement="bottom" title="Send Email" class="col-sm-4 col-xs-6 widget"><i class="fa fa-comments-o"></i></div>
-                    <div data-toggle="statistics" data-placement="bottom" title="Session Statistics" class="col-sm-4 col-xs-6 widget"><i class="fa fa-line-chart"></i></div>
-                    <div data-toggle="attendance" data-placement="bottom" title="Enter Attendance" class="col-sm-4 col-xs-6 widget"><i class="fa fa-list"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-        {% else %}
-        <div style="margin-top: 20px;" class="box">
-          <div class="body">
-            <p>You have no upcoming sessions</p>
-          </div>
-        </div>
-        {% endif %}
-        
-        <h1 class="section-title">Previous Sessions</h1>
-        {% if previous_sessions %}
-        {% for session in previous_sessions %}
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="box property-glance">
-              <div class="header">
-                <h4 class="pull-left">{{session.date}}</h4><span class="pull-right">{{session.course.code}}</span>
-                <div class="progress clear-right">
-                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{session.rating_percent}}%;" class="progress-bar">{{session.rating}}<span class="sr-only">{{session.rating_percent}}% Complete</span></div>
-                </div>
-                <div class="clear-left"><i class="fa fa-map-marker"></i><span>{{session.location}}</span></div>
-              </div>
-              <div class="body">
-                <div class="row">
-                  <div class="col-sm-6 statistic text-center">
-                    <small>{{session.description}}</small>
-                  </div>
-                  <div class="col-sm-6 text-center">
-                    <h1>{{session.attendance}}</h1><small>Attended</small>
-                  </div>
-                </div>
-                <div class="row">
-                  <div data-toggle="email" data-placement="bottom" title="Send Email" class="col-sm-4 col-xs-6 widget"><i class="fa fa-comments-o"></i></div>
-                  <div data-toggle="email" data-placement="bottom" title="Session Statistics" class="col-sm-4 col-xs-6 widget"><i class="fa fa-line-chart"></i></div>
-                  <div data-toggle="attendance" data-placement="bottom" title="Download Attendance Sheet" class="col-sm-4 col-xs-6 widget"><i class="fa fa-file-excel-o"></i></div>
-                </div>
-              </div>
+        <h1>Recent Requests</h1>
+        {% if requests %}
+        {% for request in requests%}
+        <div class="timeline">
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              <Here><h4>{{request.course.code}}</h4>{{request.description}}</Here>
             </div>
           </div>
         </div>
@@ -112,54 +52,30 @@
         {% else %}
         <div style="margin-top: 20px;" class="box">
           <div class="body">
-            <p>You have not hosted any sessions</p>
+            <p>There are no requests for your course!</p>
           </div>
         </div>
         {% endif %}
-        <div class="row">
-          <div class="col-sm-6">
-            <h1>Recent Requests</h1>
-            {% if requests %}
-            {% for request in requests%}
-            <div class="timeline">
-              <div class="item">
-                <div class="circle"></div>
-                <div class="message">
-                  <Here><h4>{{request.course.code}}</h4>{{request.description}}</Here>
-                </div>
-              </div>
+
+        <h1>Recent Questions</h1>
+        {% if questions %}
+        {% for question in questions%}
+        <div class="timeline">
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              <Here>{{question.student_id}}: {{question.text}}</Here>
             </div>
-            {% endfor %}
-            {% else %}
-            <div style="margin-top: 20px;" class="box">
-              <div class="body">
-                <p>There are no requests for your course!</p>
-              </div>
-            </div>
-            {% endif %}
-          </div>
-          <div class="col-sm-6">   
-            <h1>Recent Questions</h1>
-            {% if questions %}
-            {% for question in questions%}
-            <div class="timeline">
-              <div class="item">
-                <div class="circle"></div>
-                <div class="message">
-                  <Here>{{question.student_id}}: {{question.text}}</Here>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <div style="margin-top: 20px;" class="box">
-              <div class="body">
-                <p>No questions have come your way lately!</p>
-              </div>
-            </div>
-            {% endif %}
           </div>
         </div>
+        {% endfor %}
+        {% else %}
+        <div style="margin-top: 20px;" class="box">
+          <div class="body">
+            <p>No questions have come your way lately!</p>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
     <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
