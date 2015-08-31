@@ -4,22 +4,10 @@ from external.models import *
 
 
 
-c1 = Course(name='General Chemistry', code='CHEM1610')
-c1.save()
-c2 = Course(name='General Chemistry II', code='CHEM1620')
-c2.save()
+c1 = Course.objects.get(code="CHEM1610")
+c2 = Course.objects.get(code="APMA2120")
 
-kyle = Instructor(name="Kyle Jones", student_id='kkk321')
-kyle.save()
-joe = Instructor(name='Joe Speedy', student_id='jmf2rt')
-joe.save()
+u1 = User.objects.get(username="kmv5tf")
+kyle = Instructor.objects.get(user=u1)
 
-kyle.courses.add(c1)
-kyle.courses.add(c2)
-kyle.save()
-
-s1 = Session(course=c1, date=d1, instructor=kyle, location='Thornton 005')
-s1.save()
-
-
-
+v1 = Video(course=c1, video_url="https://www.youtube.com/watch?v=QS2Kdc4O9Vs", picture_url="http://img.youtube.com/vi/QS2Kdc4O9Vs/hqdefault.jpg", title="Trig Substitution", description="Sometimes, when presented with integrals of the three forms shown in the video, we have the chance to introduce trigonometric functions in order to rewrite the integrand as a derivative of a known inverse trig function (tangent or sine). This is a fairly long process, so we have to have our wits about us!", unit=1, section=2).save()

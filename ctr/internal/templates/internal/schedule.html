@@ -1,0 +1,114 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Sessions Controller</title>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
+    <link rel="stylesheet" href="{%static 'internal/sessions/sessions_style.css'%}">
+  </head>
+  <body>    
+    <div id="nav">
+      <div class="user-banner"><img src="http://bit.ly/1jFjKGa"/>
+        <h5 class="username">{{user.first_name|add:" "|add:user.last_name}}</h5>
+      </div>
+      <ul>
+        <li class="head"></li>
+        <li><a href="/internal/home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="/internal/inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li class="active"><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
+        <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href="#"><span>Rating</span></a></li>
+        <div class="progress clear-right">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{rating_percent}}%;" class="progress-bar">{{rating}}<span class="sr-only">{{rating_percent}}% Complete</span></div>
+        </div>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="signout"><a href="/internal/logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
+      </ul>
+    </div>
+    <div id="main">
+      <header>
+        <span class="header-title">Sessions</span> <small>Schedule sessions and </small>
+      </header>
+      <div id="content">
+        <div class="schedule-form">
+        {% if accepted %}
+          <h1 class="section-title">Thank You!</h1>
+          <div class="container">
+          <h2>As more requests come in for this examination, our instructors will schedule a session and notify your class!</h2>
+          <br><br>
+          <a href="../../" class='btn'>Return Home</a>
+          </div>
+          {% else %}
+          <div class="container" >
+            <form class="form" action="" method="post">
+                  {% csrf_token %}
+              <fieldset class="form-fieldset ui-input __first">
+                <input type="date" id="date" name="date" tabindex="0" />
+                <label for="date">
+                  <span data-text="Date of Exam">Date of session</span>
+                  {{form.date.errors}}
+                </label>
+              </fieldset>
+              
+              <fieldset class="form-fieldset ui-input __second">
+                <input type="time" id="time" name="time" tabindex="0" />
+                <label for="time">
+                  <span data-text="Time of Session">Time of Session</span>
+                  {{form.time.errors}}
+                </label>
+              </fieldset>
+
+              <fieldset class="form-fieldset ui-input __third">
+                <input type="text" id="location" name="location" tabindex="0" />
+                <label for="location">
+                  <span data-text="Location">Location</span>
+                  {{form.location.errors}}
+                </label>
+              </fieldset>
+
+              <fieldset class="form-fieldset ui-input __fourth">
+                <input type="text" id="description" name="description"/>
+                <label for="description">
+                  <span data-text="Description About the Session">Description About the Session</span>
+                  {{form.description.errors}}
+                </label>
+              </fieldset>
+              
+              <fieldset class="form-fieldset ui-input __fifth">
+                <select name="course" id="course" name="course" tabindex="0">
+                  <option>Please choose a course</option>
+                  {% for course in courses%}
+                    <option value="{{course.id}}">{{course.code}}: {{course.name}}</option>
+                  {% endfor %}
+                  </select>
+                  <label for="course">
+                    {{form.course.errors}}
+                  </label>
+              </fieldset>
+
+
+              <div class="form-footer">
+                <input type="submit" class="btn" value="Request" />
+              </div>
+            </form>
+          </div>
+        {% endif %}
+</div>
+
+
+
+
+      </div> <!-- End content -->
+    </div> <!--End Main-->
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+    <script src="{%static 'internal/home_Script.js' %}"></script>  
+  </body>
+</html>

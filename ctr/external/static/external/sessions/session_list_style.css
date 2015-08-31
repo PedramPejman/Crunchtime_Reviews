@@ -6,6 +6,14 @@ body {
   font-weight: 300;
 }
 
+.no-sessions {
+  padding: 30px;
+  text-align: center;
+  margin: auto; 
+  margin-top: 50px;
+  font-size: 2.5em;
+  font-weight: 100;
+}
 .session-list {
   width: 540px;
   list-style: none;

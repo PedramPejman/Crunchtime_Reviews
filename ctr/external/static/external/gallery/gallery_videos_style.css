@@ -16,7 +16,7 @@ body {
     text-align: center;
     text-decoration: none;
     color: rgba(50,50,50,.8);
-	padding: 15px 0px 15px;
+	  padding: 15px 0px 15px;
 }
 
 .column {
@@ -37,7 +37,8 @@ body {
   display: flex;
   -webkit-justify-content: center;
   justify-content: center;
-  
+  border-top: 1px solid;
+  border-color: rgba(50,50,50,.5);
 }
 
 .lazy-load {

@@ -7,6 +7,7 @@
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
     <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
+    <link rel="stylesheet" href="{%static 'internal/sessions/sessions_style.css'%}">
   </head>
   <body>    
     <div id="nav">
@@ -37,10 +38,10 @@
         <span class="header-title">Sessions</span> <small>Schedule sessions and </small>
       </header>
       <div id="content">
-        <h1 class="section-title">Upcoming Sessions</h1>
+        <h1 class="section-title">Pending Sessions</h1>
         {% if upcoming_sessions %}
-        {% for session in upcoming_sessions %}
           <div class="row">
+        {% for session in upcoming_sessions %}
             <div class="col-sm-4">
               <div class="box property-glance">
                 <div class="header">
@@ -56,7 +57,7 @@
                       <small>{{session.description}}</small>
                     </div>
                     <div class="col-sm-6 text-center">
-                      <h1>{{session.attendance}}</h1><small>In Attendance</small>
+                      <h1>{{session.present}}</h1><small>In Attendance</small>
                     </div>
                   </div>
                   <div class="row">
@@ -67,8 +68,48 @@
                 </div>
               </div>
             </div>
-          </div>
         {% endfor %}
+          </div>
+        {% else %}
+        <div style="margin-top: 20px;" class="box">
+          <div class="body">
+            <p>You have no pending sessions</p>
+          </div>
+        </div>
+        {% endif %}
+
+        <h1 class="section-title">Upcoming Sessions</h1>
+        {% if upcoming_sessions %}
+          <div class="row">
+        {% for session in upcoming_sessions %}
+            <div class="col-sm-4">
+              <div class="box property-glance">
+                <div class="header">
+                  <h4 class="pull-left">{{session.date}} <small> {{session.time}}</small></h4><span class="pull-right">{{session.course.code}}</span>
+                  <div class="progress clear-right">
+                    <div role="progressbar" style="width: 100%;" class="progress-bar no-rating">No Rating Yet</div>
+                  </div>
+                  <div class="clear-left"><i class="fa fa-map-marker"></i><span>{{session.location}}</span></div>
+                </div>
+                <div class="body">
+                  <div class="row">
+                    <div class="col-sm-6 statistic text-center">
+                      <small>{{session.description}}</small>
+                    </div>
+                    <div class="col-sm-6 text-center">
+                      <h1>{{session.present}}</h1><small>In Attendance</small>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div data-toggle="email" data-placement="bottom" title="Send Email" class="col-sm-4 col-xs-6 widget"><i class="fa fa-comments-o"></i></div>
+                    <div data-toggle="statistics" data-placement="bottom" title="Session Statistics" class="col-sm-4 col-xs-6 widget"><i class="fa fa-line-chart"></i></div>
+                    <div data-toggle="attendance" data-placement="bottom" title="Enter Attendance" class="col-sm-4 col-xs-6 widget"><i class="fa fa-list"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+          </div>
         {% else %}
         <div style="margin-top: 20px;" class="box">
           <div class="body">
@@ -116,52 +157,9 @@
           </div>
         </div>
         {% endif %}
-        <div class="row">
-          <div class="col-sm-6">
-            <h1>Recent Requests</h1>
-            {% if requests %}
-            {% for request in requests%}
-            <div class="timeline">
-              <div class="item">
-                <div class="circle"></div>
-                <div class="message">
-                  <Here><h4>{{request.course.code}}</h4>{{request.description}}</Here>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <div style="margin-top: 20px;" class="box">
-              <div class="body">
-                <p>There are no requests for your course!</p>
-              </div>
-            </div>
-            {% endif %}
-          </div>
-          <div class="col-sm-6">   
-            <h1>Recent Questions</h1>
-            {% if questions %}
-            {% for question in questions%}
-            <div class="timeline">
-              <div class="item">
-                <div class="circle"></div>
-                <div class="message">
-                  <Here>{{question.student_id}}: {{question.text}}</Here>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <div style="margin-top: 20px;" class="box">
-              <div class="body">
-                <p>No questions have come your way lately!</p>
-              </div>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
+        <div class="schedule"><a href="schedule/"><i class="fa fa-fw fa-plus"></i><span> Schedule a New Session</span></a></div>
+      </div> <!-- End content -->
+    </div> <!--End Main-->
     <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
     <script src="{%static 'internal/home_Script.js' %}"></script>  
   </body>

@@ -45,6 +45,8 @@ def instructor_dashboard(request):
 	today = datetime.today()
 
 	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+
 	sessions = instructor.session_set.all()
 	
 	upcoming_sessions = sessions.filter(date__gte=today).values()
@@ -64,14 +66,82 @@ def instructor_dashboard(request):
 		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
 		'previous_sessions': previous_sessions, 'requests': requests, 'questions': questions})
 
+@login_required
 def inbox(request):
 	return render(request, 'internal/inbox.html', {})
 
+@login_required
 def sessions(request):
-	return render(request, 'internal/sessions.html', {})
+	user = request.user
+	if not user: return Http404('Error')
+	
+	today = datetime.today()
 
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+	
+	courses = Course.objects.all()
+	sessions = instructor.session_set.all()
+	
+	upcoming_sessions = sessions.filter(date__gte=today).values()
+	previous_sessions = sessions.filter(date__lt=today).values()
+
+	for session in previous_sessions:
+		session['rating_percent'] = session['rating'] * 20
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+
+	return render(request, 'internal/sessions.html', {'user': user, 'rating': rating, 
+		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
+		'previous_sessions': previous_sessions})
+
+@login_required
+def sessions_schedule(request):
+	user = request.user
+	if not user: return Http404('Error')
+	
+	today = datetime.today()
+
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+	
+	courses = Course.objects.all()
+	sessions = instructor.session_set.all()
+	
+	upcoming_sessions = sessions.filter(date__gte=today).values()
+	previous_sessions = sessions.filter(date__lt=today).values()
+
+	for session in previous_sessions:
+		session['rating_percent'] = session['rating'] * 20
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+
+	accepted = False
+	if request.method == "POST":
+		scheduleForm = ScheduleForm(request.POST)
+
+		if scheduleForm.is_valid():
+			accepted = True
+			session = scheduleForm.save(commit=False)
+			session.instructor = instructor
+			session.save()
+		else:
+			errors = scheduleForm.errors
+
+	else:
+		scheduleForm = ScheduleForm()
+
+
+	return render(request, 'internal/schedule.html', {'user': user, 'rating': rating, 
+		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
+		'previous_sessions': previous_sessions, 'form': scheduleForm, 'accepted': accepted, 'courses': courses})
+
+@login_required
 def videos(request):
 	return render(request, 'internal/videos.html', {})
 
+@login_required
 def settings(request):
 	return render(request, 'internal/settings.html', {})

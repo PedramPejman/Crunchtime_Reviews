@@ -15,6 +15,7 @@
   <body>
     <div class="page">
       <div class="sexytabs">
+        
         <ul>
           <li id="sessions-tab-button"><a  href="#Sessions">
             <span>Sessions</span></a>
@@ -23,6 +24,7 @@
             <span>Calendar</span></a>
           </li>
         </ul>
+
         <div class="contents">
           <div id="Sessions">
           {% include "sessions/session_list.html" %}
@@ -31,6 +33,7 @@
             {% include "sessions/calendar.html" %}  
           </div>
         </div> <!-- End contents -->
+
       </div> <!-- End tabs -->
       <a href="request/" class="fixed-nav-button">Request</a>
     </div> <!-- End page -->
