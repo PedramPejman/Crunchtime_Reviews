@@ -68,7 +68,20 @@ def instructor_dashboard(request):
 
 @login_required
 def inbox(request):
-	return render(request, 'internal/inbox.html', {})
+	user = request.user
+	if not user: return Http404('Error')
+	
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+
+	requests = Request.objects.filter(course__in=instructor.courses.all())
+	questions = Question.objects.filter(course__in=instructor.courses.all())
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+	
+	return render(request, 'internal/inbox.html', {'user': user, 'instructor': instructor, 
+		'requests': requests, 'questions': questions, 'rating': rating, 'rating_percent': rating_percent})
 
 @login_required
 def sessions(request):
@@ -145,3 +158,9 @@ def videos(request):
 @login_required
 def settings(request):
 	return render(request, 'internal/settings.html', {})
+
+def sessions_schedule(request):
+	return render(request, 'internal/sessions.html', {})
+
+def videos_post(request):
+	return render(request, 'internal/sessions.html', {})
