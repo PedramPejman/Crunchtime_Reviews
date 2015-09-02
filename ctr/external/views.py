@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from datetime import datetime, timedelta
 from django.views.generic import ListView
 from .forms import *
@@ -123,3 +123,9 @@ def about(request):
 	employees = Employee.objects.all()
 
 	return render_to_response('about/about.html',{'instructors': instructors, 'employees': employees})
+
+def attend(request):
+	if request.method == 'POST':
+		response = {'status': 'ok'}
+
+	return JsonResponse(response)

@@ -11,5 +11,6 @@ urlpatterns = [
 	url(r'^gallery/(?P<course_code>\w+)/(?P<unit>[a-zA-Z0-9\-]+)/((?P<id>\d+)-(?P<title>[a-zA-Z0-9\-]+)/){0,1}$', views.gallery_show_videos),
 	url(r'^ask/$', views.ask),
 	url(r'^about/$', views.about),
+	url(r'^attend/$', views.attend),
 ]
 
