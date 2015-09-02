@@ -96,11 +96,8 @@ def sessions(request):
 	courses = Course.objects.all()
 	sessions = instructor.session_set.all()
 	
-	upcoming_sessions = sessions.filter(date__gte=today).values()
-	previous_sessions = sessions.filter(date__lt=today).values()
-
-	for session in previous_sessions:
-		session['rating_percent'] = session['rating'] * 20
+	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
+	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
 
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
@@ -122,8 +119,8 @@ def sessions_schedule(request):
 	courses = Course.objects.all()
 	sessions = instructor.session_set.all()
 	
-	upcoming_sessions = sessions.filter(date__gte=today).values()
-	previous_sessions = sessions.filter(date__lt=today).values()
+	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
+	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
 
 	for session in previous_sessions:
 		session['rating_percent'] = session['rating'] * 20
@@ -153,14 +150,68 @@ def sessions_schedule(request):
 
 @login_required
 def videos(request):
-	return render(request, 'internal/videos.html', {})
+	user = request.user
+	if not user: return Http404('Error')
+
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+
+	courses = Course.objects.all()
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+
+	accepted = False
+	initial_values = None
+	if request.method == "POST":
+		videoForm = VideoForm(request.POST)
+
+		if videoForm.is_valid():
+			accepted = True
+			videoForm.save()
+		else:
+			errors = videoForm.errors
+			initial_values = dict(request.POST)
+			for key in initial_values:
+				initial_values[key] = initial_values[key][0]		
+
+	else:
+		videoForm = VideoForm()
+
+	return render(request, 'internal/videos.html', {'user': user, 'rating': rating, 
+		'initial': initial_values, 'rating_percent': rating_percent, 
+		'form': videoForm, 'accepted': accepted, 'courses': courses})
 
 @login_required
 def settings(request):
-	return render(request, 'internal/settings.html', {})
+	user = request.user
+	if not user: return Http404('Error')
+	
+	today = datetime.today()
 
-def sessions_schedule(request):
-	return render(request, 'internal/sessions.html', {})
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+	
+	courses = Course.objects.all()
+	sessions = instructor.session_set.all()
+	
+	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
+	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
 
-def videos_post(request):
-	return render(request, 'internal/sessions.html', {})
+	for session in previous_sessions:
+		session['rating_percent'] = session['rating'] * 20
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+	
+	return render(request, 'internal/settings.html', {'user': user, 'rating': rating, 
+		'rating_percent': rating_percent})
+
+
+
+#HELPER FUNCTIONS
+
+def prepareSessionForTemplate(sessions):
+	for session in sessions:
+		session['rating_percent'] = session['rating'] * 20
+		session['course'] = Course.objects.get(id=session['course_id']).code
+	return sessions

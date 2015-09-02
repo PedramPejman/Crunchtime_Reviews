@@ -34,8 +34,8 @@ class Instructor(models.Model):
 	user = models.OneToOneField(User, default=0)
 	date_joined = models.DateField(default=datetime.now)
 	courses = models.ManyToManyField('Course')
-	rating = models.FloatField( default=0.0)
-	rating_num = models.IntegerField(default=0)
+	rating = models.FloatField( default=4.0)
+	rating_num = models.IntegerField(default=1)
 	role = models.CharField(max_length=30, default="Instructor")
 
 	@property

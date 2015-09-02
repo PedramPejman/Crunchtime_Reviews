@@ -3,7 +3,7 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Sessions Controller</title>
+    <title>Schedule a Session</title>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
     <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
@@ -21,30 +21,30 @@
         <li class="active"><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
         <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
         <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
-        <li class="rating-title"><a href="#"><span></span></a></li>
-        <li class="rating-title"><a href="#"><span></span></a></li>
-        <li class="rating-title"><a href="#"><span>Rating</span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span>Rating</span></a></li>
         <div class="progress clear-right">
                   <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{rating_percent}}%;" class="progress-bar">{{rating}}<span class="sr-only">{{rating_percent}}% Complete</span></div>
         </div>
-        <li class="rating-title"><a href="#"><span></span></a></li>
-        <li class="rating-title"><a href="#"><span></span></a></li>
-        <li class="rating-title"><a href="#"><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
         <li class="signout"><a href="/internal/logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
       </ul>
     </div>
     <div id="main">
       <header>
-        <span class="header-title">Sessions</span> <small>Schedule sessions and </small>
+        <span class="header-title">Schedule a Session</span> 
       </header>
       <div id="content">
         <div class="schedule-form">
         {% if accepted %}
           <h1 class="section-title">Thank You!</h1>
           <div class="container">
-          <h2>As more requests come in for this examination, our instructors will schedule a session and notify your class!</h2>
+          <h2>Give 'em hell {{user.first_name}}!</h2>
           <br><br>
-          <a href="../../" class='btn'>Return Home</a>
+          <a href="/internal/home/" class='btn'>Return Home</a>
           </div>
           {% else %}
           <div class="container" >
@@ -53,7 +53,7 @@
               <fieldset class="form-fieldset ui-input __first">
                 <input type="date" id="date" name="date" tabindex="0" />
                 <label for="date">
-                  <span data-text="Date of Exam">Date of session</span>
+                  <span data-text="Date of Session">Date of session</span>
                   {{form.date.errors}}
                 </label>
               </fieldset>
@@ -96,7 +96,7 @@
 
 
               <div class="form-footer">
-                <input type="submit" class="btn" value="Request" />
+                <input type="submit" class="btn" value="Schedule" />
               </div>
             </form>
           </div>

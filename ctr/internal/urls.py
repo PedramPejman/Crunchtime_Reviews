@@ -8,7 +8,6 @@ urlpatterns = [
 	url(r'^sessions/$', views.sessions),
 	url(r'^sessions/schedule/$', views.sessions_schedule),
 	url(r'^videos/$', views.videos),
-	url(r'^videos/post$', views.videos_post),
 	url(r'^settings/$', views.settings),
 	url(r'^logout/$', views.logout),
 
