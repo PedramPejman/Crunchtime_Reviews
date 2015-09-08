@@ -3,9 +3,9 @@ var submit_callback = submit_button_clicked;
 $('.submit-button').click(function() {
   //displaying the overlay
    var clickBtnValue = $(this).val();
-   /*current_overlay_course = this.getAttribute('data-course');
+   current_overlay_course = this.getAttribute('data-course');
    current_overlay_date = this.getAttribute('data-date');
-   current_overlay_id = this.getAttribute('data-session-id');*/
+    current_overlay_id = this.getAttribute('data-session-id');
     
   //if signing up for a second session, some housekeeping is in order
   (document.getElementById('sign-me-up')).innerHTML = "Sign Me Up!" ;
@@ -24,12 +24,13 @@ function submit_button_clicked(e) {
   validate(button, email, switch_buttons_animation, failure_animation);
 }
 
-function validate(button, email, onSucces, onFailure) {
-  $.ajax({ url: '.',
-         //data: {action: 'send_email', student_id: email, course: current_overlay_course, date: current_overlay_date, session_id: current_overlay_id},
+function validate(button, email, onSuccess, onFailure) {
+  $.ajax({ url: 'attend/'+ email +'/' + current_overlay_id,
+//         data: {student_id: email, course: current_overlay_course, date: current_overlay_date, session_id: current_overlay_id},
          type: 'get',
-         success: function() {
-          onSucces(button, email);
+         success: function(data) {
+          $('#error').hide(1000);
+          onSuccess(button, email);
           submit_callback = close_overlay;
                   },
           error: function() {
@@ -89,3 +90,19 @@ $('#close-icon').click(function() {
                   }
 });
 */
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

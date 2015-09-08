@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
 from .statics import SESSION_STATUS
 from datetime import datetime
@@ -14,8 +15,19 @@ class Session(models.Model):
 	present = models.IntegerField(default=0)
 	status = models.CharField(max_length='5', choices=SESSION_STATUS, default=SESSION_STATUS[0])
 	test_file = models.FileField(null=True)
-	rating = models.FloatField( default=0.0)
-	rating_num = models.IntegerField(default=0)
+	students = models.ManyToManyField('Student')
+
+	@property
+	def rating(self):
+		ratings = Rating.objects.filter(session=self).aggregate(Avg('value'))['value__avg']
+		if ratings:
+			return round(ratings, 2)
+		else:
+			return 0
+
+	@rating.setter
+	def rating(self, value):
+		pass
 
 	def __str__(self):
 		return "Session taught by %s for %s" % (self.instructor.name, self.course.name)
@@ -34,9 +46,8 @@ class Instructor(models.Model):
 	user = models.OneToOneField(User, default=0)
 	date_joined = models.DateField(default=datetime.now)
 	courses = models.ManyToManyField('Course')
-	rating = models.FloatField( default=4.0)
-	rating_num = models.IntegerField(default=1)
 	role = models.CharField(max_length=30, default="Instructor")
+	picture = models.ImageField(upload_to="employee_photos", null=True)
 
 	@property
 	def name(self):
@@ -46,14 +57,27 @@ class Instructor(models.Model):
 	def name(self, value):
 		pass
 	
+	@property
+	def rating(self):
+		ratings = Rating.objects.filter(instructor=self).aggregate(Avg('value'))['value__avg']
+		if ratings:
+			return round(ratings, 2)
+		else:
+			return 0
+
+	@rating.setter
+	def rating(self, value):
+		pass
+	
 	def __str__(self):
-		return "Instructor %s(%s) teaching %s with rating %s" % (self.user.username, self.name, self.courses.all(),self.rating)
+		return "Instructor %s(%s) teaching %s with rating %s" % (self.user.username, self.name, self.courses.all(), self.rating)
 
 class Employee(models.Model):
 	user = models.OneToOneField(User, default=0)
 	date_joined = models.DateField(default=datetime.now)
 	is_admin = models.BooleanField(default=False)
 	role = models.CharField(max_length=30)
+	picture = models.ImageField(upload_to="employee_photos", null=True)
 
 	@property
 	def name(self):
@@ -108,4 +132,12 @@ class Question(models.Model):
 	text = models.TextField(default=None)
 	note = models.TextField(blank=True, null=True)
 
-	
+class Student(models.Model):
+	student_id = models.CharField(max_length=10)
+	date_created = models.DateField(auto_now_add=True)
+
+class Rating(models.Model):
+	student = models.ForeignKey('Student')
+	instructor = models.ForeignKey('Instructor')
+	session = models.ForeignKey('Session')
+	value = models.FloatField()

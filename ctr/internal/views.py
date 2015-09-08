@@ -47,22 +47,30 @@ def instructor_dashboard(request):
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
 
+	if (instructor.picture):
+		user_picture = instructor.picture.url
+	else:
+		user_picture = 'http://bit.ly/1jFjKGa'
+
 	sessions = instructor.session_set.all()
 	
-	upcoming_sessions = sessions.filter(date__gte=today).values()
-	previous_sessions = sessions.filter(date__lt=today).values()
+	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
+	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
 
 	for session in previous_sessions:
+		session['rating'] = Session.objects.get(id=session['id']).rating
+		print(session['rating'])
 		session['rating_percent'] = session['rating'] * 20
 
-	rating = Instructor.objects.get(user=user).rating
+	rating = Rating.objects.get(instructor=instructor).value
 	rating_percent = rating * 20
 
 	requests = Request.objects.filter(course__in=instructor.courses.all())
 	questions = Question.objects.filter(course__in=instructor.courses.all())
 
 
-	return render(request, 'internal/home.html', {'user': user, 'rating': rating, 
+	return render(request, 'internal/home.html', {'user': user, 
+		'user_picture': user_picture, 'rating': rating, 
 		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
 		'previous_sessions': previous_sessions, 'requests': requests, 'questions': questions})
 
@@ -70,7 +78,7 @@ def instructor_dashboard(request):
 def inbox(request):
 	user = request.user
 	if not user: return Http404('Error')
-	
+
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
 
@@ -212,6 +220,7 @@ def settings(request):
 
 def prepareSessionForTemplate(sessions):
 	for session in sessions:
+		session['rating'] = Session.objects.get(id=session['id']).rating
 		session['rating_percent'] = session['rating'] * 20
 		session['course'] = Course.objects.get(id=session['course_id']).code
 	return sessions

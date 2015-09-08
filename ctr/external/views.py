@@ -124,8 +124,16 @@ def about(request):
 
 	return render_to_response('about/about.html',{'instructors': instructors, 'employees': employees})
 
-def attend(request):
-	if request.method == 'POST':
-		response = {'status': 'ok'}
+def attend(request, student_id, session_id):
+	session = Session.objects.filter(id=session_id)[0]
+	student = Student.objects.filter(student_id=student_id)
+	if not student:
+		student = Student(student_id=student_id).save()
+		session.students.add(student)
+	else:
+		student = student[0]
+		session.students.add(student)
 
+	response = {'status': 'ok'}
+	
 	return JsonResponse(response)

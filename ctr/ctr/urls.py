@@ -13,9 +13,10 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from internal import views
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -23,3 +24,11 @@ urlpatterns = [
     url(r'^internal/', include('internal.urls')),
     url(r'^', include('external.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': "/home/pedram/repos/crunchtime_reviews/ctr/media",
+        })
+        
+)
