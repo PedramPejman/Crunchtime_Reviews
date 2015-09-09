@@ -62,7 +62,7 @@ def instructor_dashboard(request):
 		print(session['rating'])
 		session['rating_percent'] = session['rating'] * 20
 
-	rating = Rating.objects.get(instructor=instructor).value
+	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
 
 	requests = Request.objects.filter(course__in=instructor.courses.all())
@@ -177,7 +177,6 @@ def videos(request):
 			accepted = True
 			videoForm.save()
 		else:
-			errors = videoForm.errors
 			initial_values = dict(request.POST)
 			for key in initial_values:
 				initial_values[key] = initial_values[key][0]		
@@ -199,20 +198,25 @@ def settings(request):
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
 	
-	courses = Course.objects.all()
-	sessions = instructor.session_set.all()
-	
-	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
-	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
-
-	for session in previous_sessions:
-		session['rating_percent'] = session['rating'] * 20
-
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
-	
+	accepted = False
+
+	if request.method == "POST":
+		form = SettingsForm(request.POST)
+		if form.is_valid():
+			if ('password' in request.POST and 'repeat_password' in request.POST):
+				user.set_password(request.POST['password'])
+				user.save()
+				accepted = True
+			elif ('picture' in request.POST):
+				accepted = True
+
+	else:
+		form = SettingsForm()
+
 	return render(request, 'internal/settings.html', {'user': user, 'rating': rating, 
-		'rating_percent': rating_percent})
+		'rating_percent': rating_percent, 'form':form, 'accepted': accepted})
 
 
 

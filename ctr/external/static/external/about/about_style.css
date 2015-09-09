@@ -164,7 +164,6 @@ TEAM DIV
   min-height:200px;
   height:auto;
   margin:0 auto;
-  background-color:white;
   box-sizing:border-box;
   padding:0;
   display:-webkit-flex;
@@ -216,8 +215,8 @@ TEAM DIV
   -o-transition:opacity 0.26s ease-out;   
   transition:opacity 0.26s ease-out;    
 }
-#team-content:hover .employee-img, #team-content:active .employee-img {
-  opacity:0.3;
+#team-content .employee-img{
+  opacity:0.7;
 }
 #team-content:hover .employee-img:hover, #team-content:active .employee-img:active {
   opacity:1;

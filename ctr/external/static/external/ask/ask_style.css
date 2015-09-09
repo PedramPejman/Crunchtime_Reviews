@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,900);
 
 html {
-  background: #f7f7f7 url(http://css-tricks.com/examples/RoundButtons/images/bg.png) repeat center top;
+  background: #fafafa url(http://css-tricks.com/examples/RoundButtons/images/bg.png) repeat center top;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
@@ -179,7 +179,7 @@ h2 {
 
 .btn {
   border: 0;
-  background-color: #50617A;
+  background-color: #dce4ec;
   color: rgba(20,20,20,.4);
   padding: 18px 30px 18px 30px;
   font-size: 18px;
@@ -194,8 +194,8 @@ h2 {
 
 .btn:focus, .btn:active,
 .btn:hover {
-  background-color: #6EB1FF;
   color: white;
+  background-color: #50617A;
   cursor: pointer;
 }
 
