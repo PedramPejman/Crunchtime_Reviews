@@ -5,7 +5,9 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 from .forms import *
+from ctr.settings import DOC_ROOT 
 from external.models import *
+
 
 def login(request):
 	error = None
@@ -13,7 +15,7 @@ def login(request):
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user and user.is_active:
 			django_login(request, user)
-			return HttpResponseRedirect('/internal/home/')
+			return HttpResponseRedirect(DOC_ROOT + 'internal/home/')
 		elif user and not user.is_active:
 			error="Your account has been suspended"
 		else:
