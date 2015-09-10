@@ -34,6 +34,9 @@
       </ul>
     </div>
     <div id="main">
+      {% if error %}
+	{{error}}
+      {% endif %}
       <header>
         <span class="header-title">Schedule a Session</span> <small>Make sure to <a target="_blank" href="readme">view this README document</a> before scheduling your session</small>
       </header>
@@ -44,7 +47,7 @@
           <div class="container">
           <h2>Give 'em hell {{user.first_name}}!</h2>
           <br><br>
-          <a href="../../../../home/" class='btn'>Return Home</a>
+          <a href="../../home/" class='btn'>Return Home</a>
           </div>
           {% else %}
           <div style="margin-top: 20px;" class="box">

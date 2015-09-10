@@ -4,6 +4,7 @@ from external.models import *
 #GENERAL
 crunchtime_host = "crunchtimesupport@virginia.edu"
 
+
 #ATTEND MAIL
 attend_subject = 'Crunchtime Confirmation'
 
@@ -24,7 +25,7 @@ def schedule_message(session):
 def schedule_recepients(students):
 	emails = []
 	for student in students:
-		emails.append(student.student_id + "@virgina.edu")
+		emails.append(student.student_id + "@virginia.edu")
 	return emails
 
 

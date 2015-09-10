@@ -124,6 +124,7 @@ def sessions_schedule(request):
 
 	courses = Course.objects.all()
 	sessions = instructor.session_set.all()
+	error = None
 	
 	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
 	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
@@ -142,10 +143,16 @@ def sessions_schedule(request):
 			session = scheduleForm.save(commit=False)
 			session.instructor = instructor
 			session.save()
+
 			try:
-				send_mass_mail(schedule_subject, schedule_message(session), crunchtime_host, schedule_recepients(session.course.students))
-			except Error:
+				data = (schedule_subject, schedule_message(session), crunchtime_host, schedule_recepients(session.course.students))
+				send_mass_mail((data,))
+			except:
+				#Check why it failed
+				if (len(session.course.students) > 0):
+					error = "IMPORTANT: Please let the website administrator know that a notification email was not sent for this session."
 				print("Could not send email")
+			
 		else:
 			errors = scheduleForm.errors
 
@@ -153,8 +160,8 @@ def sessions_schedule(request):
 		scheduleForm = ScheduleForm()
 
 	return render(request, 'internal/schedule.html', {'user': user, 'rating': rating, 'user_picture': user_picture,
-		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
-		'previous_sessions': previous_sessions, 'form': scheduleForm, 'accepted': accepted, 'courses': courses})
+		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 'error': error,
+		'previous_sessions': previous_sessions, 'form': scheduleForm, 'accepted': accepted, 'courses': courses })
 
 @login_required
 def videos(request):
