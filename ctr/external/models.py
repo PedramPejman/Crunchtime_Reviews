@@ -3,6 +3,10 @@ from django.db.models import Avg
 from django.contrib.auth.models import User
 from .statics import SESSION_STATUS
 from datetime import datetime
+def courseName(instance, filename):
+	return "%s/%s_%s" % (instance.course.code, datetime.now().strftime('%Y-%m-%d_%H-%M-%S'), filename)
+
+
 
 class Session(models.Model):
 	course = models.ForeignKey('Course')
@@ -121,9 +125,6 @@ class Request(models.Model):
 		return "Request by %s for %s " % (self.student_id, self.course)
 
 class Question(models.Model):
-	def courseName(instance, filename):
-		return "%s/%s_%s" % (instance.course.code, 
-			datetime.now().strftime('%Y-%m-%d_%H-%M-%S'), filename)
 
 	course = models.ForeignKey('Course')
 	student_id = models.CharField(max_length=10)
