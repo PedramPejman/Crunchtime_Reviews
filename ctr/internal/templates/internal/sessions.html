@@ -16,11 +16,11 @@
       </div>
       <ul>
         <li class="head"></li>
-        <li><a href="/internal/home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
-        <li><a href="/internal/inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
-        <li class="active"><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
-        <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
-        <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+        <li><a href="../home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="../inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li class="active"><a href="../sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li><a href="../videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
+        <li><a href="../settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span>Rating</span></a></li>
@@ -30,12 +30,12 @@
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
-        <li class="signout"><a href="/internal/logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
+        <li class="signout"><a href="../logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
       </ul>
     </div>
     <div id="main">
       <header>
-        <span class="header-title">Sessions</span> <small>Schedule sessions and </small>
+        <span class="header-title">Sessions</span> <small>Schedule sessions and monitor previous and upcoming sessions</small>
       </header>
       <div id="content">
       
@@ -78,15 +78,15 @@
           </div>
         </div>
         {% endif %}
-        
-        <h1 class="section-title">Previous Sessions</h1>
+        <div class="schedule"><a style="margin-top:2%;"  href="schedule/"><i class="fa fa-fw fa-plus"></i><span> Schedule a New Session</span></a></div>
+        <h1 style="margin-top:20px;"class="section-title">Previous Sessions</h1>
         {% if previous_sessions %}
         {% for session in previous_sessions %}
         <div class="row">
           <div class="col-sm-4">
             <div class="box property-glance">
               <div class="header">
-                <h4 class="pull-left">{{session.date}}</h4><span class="pull-right">{{session.course}}</span>
+                <h4 class="pull-left">{{session.date}} <small> {{session.time}}</small></h4><span class="pull-right">{{session.course}}</span>
                 <div class="progress clear-right">
                   <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{session.rating_percent}}%;" class="progress-bar">{{session.rating}}<span class="sr-only">{{session.rating_percent}}% Complete</span></div>
                 </div>
@@ -118,7 +118,6 @@
           </div>
         </div>
         {% endif %}
-        <div class="schedule"><a href="schedule/"><i class="fa fa-fw fa-plus"></i><span> Schedule a New Session</span></a></div>
       </div> <!-- End content -->
     </div> <!--End Main-->
     <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>

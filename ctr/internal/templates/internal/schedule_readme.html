@@ -1,0 +1,71 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Schedule a Session</title>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
+    <link rel="stylesheet" href="{%static 'internal/sessions/sessions_style.css'%}">
+  </head>
+  <body>    
+    <div style="margin-left:0;" id="main">
+      <header>
+        <span class="header-title">Session Scheduling Directions</span> 
+      </header>
+      <div id="content">
+        <div class="timeline">
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Use the following template to send an email to Cathy Dean (<b>cld@eservices.virginia.edu</b>) in order to reserve space
+            </div>
+          </div>
+          
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Dear Cathy,
+
+              I am an instructor working with Crunchtime Reviews (under Lisa Lampe). <br><br>
+
+              I was wondering if I could reserve space for a review session I plan on hosting.<br><br>
+
+              Any of the following locations will be perfect:<br>
+              Olsson Basement, Olsson 120, Thornton E303, Thornton E326<br><br>
+
+              For the following date/time:<br>
+              --/--/-- --:-- until --:--<br><br>
+
+              Thank you so much!<br><br>
+
+              Best,<br>
+              -------------
+            </div>
+          </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Make sure to cc Lisa (<b>ll4uu@eservices.virginia.edu</b>) and Pedram (<b>pedram@virginia.edu</b>) in your email.
+            </div>
+          </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Once you have received confirmation from Cathy, feel free to schedule the session using the form.
+            </div>
+          </div>
+        </div>
+      </div>    
+    </div> 
+
+
+
+
+      </div> <!-- End content -->
+    </div> <!--End Main-->
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+    <script src="{%static 'internal/home_Script.js' %}"></script>  
+  </body>
+</html>

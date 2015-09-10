@@ -15,11 +15,11 @@
       </div>
       <ul>
         <li class="head"></li>
-        <li><a href="/internal/home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
-        <li class="active"><a href="/internal/inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
-        <li><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
-        <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
-        <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+        <li><a href="../home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li class="active"><a href="../inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li><a href="../sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li><a href="../videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
+        <li><a href="../settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span>Rating</span></a></li>
@@ -29,7 +29,7 @@
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
-        <li class="signout"><a href="/internal/logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
+        <li class="signout"><a href="../logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
       </ul>
     </div>
     <div id="main">
@@ -39,17 +39,16 @@
       <div id="content">
         <h1 class="section-title">Recent Requests</h1>
         {% if requests %}
+        <div class="timeline">
         {% for request in requests %}
-          <div class="timeline">
-            <div class="item">
-              <div class="circle"></div>
-              <div class="message">
-                <Here><h4>{{request.course.code}}</h4>{{request.description}}</Here>
-              </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              <Here><h4>{{request.course.code}}</h4>{{request.description}}</Here>
             </div>
           </div>
-        </div>
         {% endfor %}
+        </div>
         {% else %}
         <div style="margin-top: 20px;" class="box">
           <div class="body">
@@ -59,16 +58,20 @@
         {% endif %}
         <h1 class="section-title">Recent Questions</h1>
         {% if questions %}
-        {% for question in questions%}
         <div class="timeline">
+        {% for question in questions%}
           <div class="item">
             <div class="circle"></div>
             <div class="message">
-              <Here>{{question.student_id}}: {{question.text}}</Here>
+              <div>{{question.student_id}}: {{question.text}}</div>
+              {% if question.attachment %}
+              <a href="{{question.attachment.url}}">Attachment</a>
+              {% endif %}
             </div>
           </div>
-        </div>
         {% endfor %}
+        </div>
+      </div>
         {% else %}
         <div style="margin-top: 20px;" class="box">
           <div class="body">

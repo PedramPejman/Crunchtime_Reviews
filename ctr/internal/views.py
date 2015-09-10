@@ -1,3 +1,4 @@
+from django.core.mail import send_mail, send_mass_mail
 from django.shortcuts import render, render_to_response, HttpResponseRedirect
 from django.http import HttpResponse, Http404
 from django.contrib.auth import authenticate, logout as django_logout
@@ -5,6 +6,7 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 from .forms import *
+from external.mail import *
 from ctr.settings import DOC_ROOT 
 from external.models import *
 
@@ -48,21 +50,12 @@ def instructor_dashboard(request):
 
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
-
-	if (instructor.picture):
-		user_picture = instructor.picture.url
-	else:
-		user_picture = 'http://bit.ly/1jFjKGa'
+	user_picture = instructor.picture.url
 
 	sessions = instructor.session_set.all()
 	
 	upcoming_sessions = prepareSessionForTemplate(sessions.filter(date__gte=today).values())
 	previous_sessions = prepareSessionForTemplate(sessions.filter(date__lt=today).values())
-
-	for session in previous_sessions:
-		session['rating'] = Session.objects.get(id=session['id']).rating
-		print(session['rating'])
-		session['rating_percent'] = session['rating'] * 20
 
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
@@ -83,6 +76,7 @@ def inbox(request):
 
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
+	user_picture = instructor.picture.url
 
 	requests = Request.objects.filter(course__in=instructor.courses.all())
 	questions = Question.objects.filter(course__in=instructor.courses.all())
@@ -90,7 +84,7 @@ def inbox(request):
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
 	
-	return render(request, 'internal/inbox.html', {'user': user, 'instructor': instructor, 
+	return render(request, 'internal/inbox.html', {'user': user, 'instructor': instructor, 'user_picture': user_picture,
 		'requests': requests, 'questions': questions, 'rating': rating, 'rating_percent': rating_percent})
 
 @login_required
@@ -102,6 +96,7 @@ def sessions(request):
 
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
+	user_picture = instructor.picture.url
 	
 	courses = Course.objects.all()
 	sessions = instructor.session_set.all()
@@ -113,7 +108,7 @@ def sessions(request):
 	rating_percent = rating * 20
 
 	return render(request, 'internal/sessions.html', {'user': user, 'rating': rating, 
-		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
+		'rating_percent': rating_percent, 'user_picture': user_picture, 'upcoming_sessions': upcoming_sessions, 
 		'previous_sessions': previous_sessions})
 
 @login_required
@@ -125,7 +120,8 @@ def sessions_schedule(request):
 
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
-	
+	user_picture = instructor.picture.url
+
 	courses = Course.objects.all()
 	sessions = instructor.session_set.all()
 	
@@ -141,20 +137,22 @@ def sessions_schedule(request):
 	accepted = False
 	if request.method == "POST":
 		scheduleForm = ScheduleForm(request.POST)
-
 		if scheduleForm.is_valid():
 			accepted = True
 			session = scheduleForm.save(commit=False)
 			session.instructor = instructor
 			session.save()
+			try:
+				send_mass_mail(schedule_subject, schedule_message(session), crunchtime_host, schedule_recepients(session.course.students))
+			except Error:
+				print("Could not send email")
 		else:
 			errors = scheduleForm.errors
 
 	else:
 		scheduleForm = ScheduleForm()
 
-
-	return render(request, 'internal/schedule.html', {'user': user, 'rating': rating, 
+	return render(request, 'internal/schedule.html', {'user': user, 'rating': rating, 'user_picture': user_picture,
 		'rating_percent': rating_percent, 'upcoming_sessions': upcoming_sessions, 
 		'previous_sessions': previous_sessions, 'form': scheduleForm, 'accepted': accepted, 'courses': courses})
 
@@ -165,6 +163,7 @@ def videos(request):
 
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
+	user_picture = instructor.picture.url
 
 	courses = Course.objects.all()
 	rating = Instructor.objects.get(user=user).rating
@@ -187,7 +186,7 @@ def videos(request):
 		videoForm = VideoForm()
 
 	return render(request, 'internal/videos.html', {'user': user, 'rating': rating, 
-		'initial': initial_values, 'rating_percent': rating_percent, 
+		'initial': initial_values, 'rating_percent': rating_percent, 'user_picture': user_picture,
 		'form': videoForm, 'accepted': accepted, 'courses': courses})
 
 @login_required
@@ -199,7 +198,8 @@ def settings(request):
 
 	instructor = Instructor.objects.get(user=user)
 	if not instructor: return Http404('Error')
-	
+	user_picture = instructor.picture.url
+
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
 	accepted = False
@@ -217,10 +217,8 @@ def settings(request):
 	else:
 		form = SettingsForm()
 
-	return render(request, 'internal/settings.html', {'user': user, 'rating': rating, 
+	return render(request, 'internal/settings.html', {'user': user, 'rating': rating, 'user_picture': user_picture,
 		'rating_percent': rating_percent, 'form':form, 'accepted': accepted})
-
-
 
 #HELPER FUNCTIONS
 
@@ -229,4 +227,5 @@ def prepareSessionForTemplate(sessions):
 		session['rating'] = Session.objects.get(id=session['id']).rating
 		session['rating_percent'] = session['rating'] * 20
 		session['course'] = Course.objects.get(id=session['course_id']).code
+		session['present'] = Session.objects.get(id=session['id']).present
 	return sessions
