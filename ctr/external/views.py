@@ -106,6 +106,7 @@ def ask(request):
 	if request.method == 'POST':
 		question_form = QuestionForm(request.POST, request.FILES)
 		if question_form.is_valid():
+			print(request.FILES)
 			accepted = True
 			question = question_form.save()
 
