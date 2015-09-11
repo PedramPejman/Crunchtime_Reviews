@@ -3,10 +3,9 @@ from django.db.models import Avg
 from django.contrib.auth.models import User
 from .statics import SESSION_STATUS
 from datetime import datetime
+
 def courseName(instance, filename):
 	return "%s/%s_%s" % (instance.course.code, datetime.now().strftime('%Y-%m-%d_%H-%M-%S'), filename)
-
-
 
 class Session(models.Model):
 	course = models.ForeignKey('Course')
