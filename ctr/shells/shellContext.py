@@ -12,3 +12,4 @@ i2 = Instructor.objects.all()[2]
 students = Student.objects.all()
 questions = Question.objects.all()
 requests = Request.objects.all()
+sessions = Session.objects.all()

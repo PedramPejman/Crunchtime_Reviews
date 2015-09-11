@@ -129,3 +129,14 @@ html {
   font-weight: 200;
   margin: 0.4em 0;
 }
+
+.login-text {
+  position:fixed;
+  bottom: 0px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  text-decoration: none;
+  font-size: 16px;
+  color: rgba(0,0,0,.3);
+  text-align: center;
+}
