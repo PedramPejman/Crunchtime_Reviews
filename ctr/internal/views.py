@@ -1,3 +1,4 @@
+from django.core.files import File
 from django.core.mail import send_mail, send_mass_mail
 from django.shortcuts import render, render_to_response, HttpResponseRedirect
 from django.http import HttpResponse, Http404
@@ -212,14 +213,20 @@ def settings(request):
 	accepted = False
 
 	if request.method == "POST":
-		form = SettingsForm(request.POST)
+		form = SettingsForm(request.POST, request.FILES)
+		print (request.FILES)
 		if form.is_valid():
-			if ('password' in request.POST and 'repeat_password' in request.POST):
+			print("VALID")
+			if (len(request.POST['password']) > 0 and len(request.POST['repeat_password']) > 0):
 				user.set_password(request.POST['password'])
 				user.save()
 				accepted = True
-			elif ('picture' in request.POST):
+			if (request.FILES['picture']):
+				instructor.picture = request.FILES['picture']
+				instructor.save()
 				accepted = True
+		else :
+			print(form.errors)
 
 	else:
 		form = SettingsForm()

@@ -23,7 +23,7 @@ class SettingsForm(forms.Form):
 			if (self.cleaned_data.get('password') !=
 				self.cleaned_data.get('repeat_password')):
 				raise ValidationError("Passwords do not match")
-			if (len(self.cleaned_data.get('password')) < 4):
+			if (len(self.cleaned_data.get('password')) < 4 and len(self.cleaned_data.get('password')) > 0):
 				raise ValidationError('Password must be at least 4 characters')
 		elif ('picture' not in self.cleaned_data):
 			raise ValidationError("No changes were submitted")
