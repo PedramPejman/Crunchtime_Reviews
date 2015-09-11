@@ -52,9 +52,11 @@ def sessions_request(request):
 	courses = Course.objects.all()
 	if request.method == 'POST':
 		request_form = RequestForm(request.POST)
-		if request_form.is_valid():
+		if request_form.is_valid():		
+			s_request = request_form.save()	
+			send_mail(request_subject, request_message(), crunchtime_host, [s_request.student_id+'@virginia.edu'])
+			send_mail(request_alert_subject, request_alert_message(s_request), crunchtime_host, request_alert_recepients(s_request))
 			accepted = True
-			request_form.save()
 		else:
 			if (request_form.errors):
 				errors = request_form.errors
