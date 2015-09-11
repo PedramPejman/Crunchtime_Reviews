@@ -28,7 +28,7 @@ def login(request):
 def logout(request):
 	if request.user:
 		django_logout(request)
-	return HttpResponseRedirect('/.')
+	return HttpResponseRedirect(DOC_ROOT)
 
 @login_required
 def dashboard(request):
@@ -214,14 +214,13 @@ def settings(request):
 
 	if request.method == "POST":
 		form = SettingsForm(request.POST, request.FILES)
-		print (request.FILES)
 		if form.is_valid():
-			print("VALID")
 			if (len(request.POST['password']) > 0 and len(request.POST['repeat_password']) > 0):
 				user.set_password(request.POST['password'])
 				user.save()
 				accepted = True
-			if (request.FILES['picture']):
+			if ('picture' in request.FILES and request.FILES['picture']):
+				instructor = Instructor.objects.get(user__username='rjl2zw')
 				instructor.picture = request.FILES['picture']
 				instructor.save()
 				accepted = True
