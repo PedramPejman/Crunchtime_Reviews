@@ -1,9 +1,10 @@
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404, JsonResponse
 from datetime import datetime, timedelta
 from django.views.generic import ListView
 from .forms import *
+from .mail import *
 from external.models import *
 import calendar
 
@@ -104,10 +105,17 @@ def ask(request):
 	courses = Course.objects.all()
 	if request.method == 'POST':
 		question_form = QuestionForm(request.POST, request.FILES)
-		print(question_form)
 		if question_form.is_valid():
 			accepted = True
-			question_form.save()
+			question = question_form.save()
+
+			try:
+				send_mail(ask_subject, ask_message(question), crunchtime_host, [question.student_id+'@virginia.edu'])
+				send_mail(ask_alert_subject, ask_alert_message(question), crunchtime_host, ask_alert_recepients(question.course.instructor_set.all()))
+			except:
+				print(ask_alert_subject, ask_alert_message(question), crunchtime_host, ask_alert_recepients(question.course.instructor_set.all()))
+				print("email was not sent")
+
 		else:
 			if (question_form.errors):
 				errors = question_form.errors
@@ -128,6 +136,7 @@ def about(request):
 def attend(request, student_id, session_id):
 	session = Session.objects.filter(id=session_id)[0]
 	student = Student.objects.filter(student_id=student_id)
+
 	if not student:
 		student = Student(student_id=student_id)
 		student.save()
@@ -136,16 +145,10 @@ def attend(request, student_id, session_id):
 		student = student[0]
 		session.students.add(student)
 
-	send_mail('Crunchtime Confirmation', attend_message(session_id, student_id), crunchtime_host, [student_id+'@virginia.edu'], fail_silently=False)
-	response = {'status': 'ok'}
-	
+	try:
+		send_mail(attend_subject, attend_message(session_id, student_id), crunchtime_host, [student_id+'@virginia.edu'])
+		response = {'status': 'ok'}
+	except:
+		response = {'status': 'error', 'error': 'mail was not sent'}
+		
 	return JsonResponse(response)
-
-crunchtime_host = "crunchtimesupport@virginia.edu"
-
-def attend_message(session_id, student_id):
-	session = Session.objects.get(id=session_id)
-	student = Student.objects.get(student_id=student_id)
-	
-	text = "Thank you for registering to attend the crunchtime review session for %s on %s, %s in %s.\n\nIn the mean time, feel free to check out our videos in the website's gallery section.\n\nWe look forward to seeing you!\n\nSincerely,\nYour Humble Crunchers" % (session.course.code, session.date, session.time, session.location) 
-	return text

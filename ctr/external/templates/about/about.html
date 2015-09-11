@@ -68,7 +68,7 @@
 	<div id="team-content">
 		{% for employee in employees%}
 	    <figure class="employee">
-	      <img class="employee-img" src="http://500px.com/graphics/pages/team/squares/oleg.jpg">
+	      <img class="employee-img" src="{{employee.picture.url}}">
 	      <figcaption class="employee-info">
 	        <div class="employee-name">{{employee.name}}</div>
 	        <div class="employee-role">{{employee.role}}</div>
@@ -77,7 +77,7 @@
 	    {% endfor %}
 	    {% for instructor in instructors%}
 	    <figure class="employee">
-	      <img class="employee-img" src="http://500px.com/graphics/pages/team/squares/oleg.jpg">
+	      <img class="employee-img" src="{{instructor.picture.url}}">
 	      <figcaption class="employee-info">
 	        <div class="employee-name">{{instructor.name}}</div>
 	        <div class="employee-role">Instructor</div>

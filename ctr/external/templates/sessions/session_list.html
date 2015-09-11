@@ -4,7 +4,7 @@
   {% for session in sessions%}
   <li class = "session">
     <div data-day='{{session.date.day}}' class="detail">
-      <div class="pic">
+      <div title="{{session.instructor.user.first_name}} {{session.instructor.user.last_name}}" class="pic">
         <img class="employee_picture" src="{{session.instructor.picture.url}}" />
       </div>
       <div class="text">

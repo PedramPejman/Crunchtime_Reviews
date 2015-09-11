@@ -1,0 +1,62 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Schedule a Session</title>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
+    <link rel="stylesheet" href="{%static 'internal/sessions/sessions_style.css'%}">
+  </head>
+  <body>    
+    <div style="margin-left:0;" id="main">
+      <header>
+        <span class="header-title">Video Posting Directions</span> 
+      </header>
+      <div id="content">
+        <div class="timeline">
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Record your video using whatever means you'd like (either the DML video studio or your own setup if previously arranged)
+            </div>
+          </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Prepend the Crunchtime intro to it using Final Cut Pro (or any other video editing software you would like). You can get this snippet by going to this <a href="">link</a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Upload the video to Youtube using the Crunchtime account. The credentials for our Youtube account is in your email. Search "Crunchtime Youtube credentials" in your email.
+            </div>
+          </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Once uploaded, record the URL of the video and URL of the picture to the video.
+            </div>
+          </div>
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              Now you're ready to make the posting on our site!
+            </div>
+          </div>
+
+        </div>
+      </div>    
+    </div> 
+
+
+
+
+      </div> <!-- End content -->
+    </div> <!--End Main-->
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+    <script src="{%static 'internal/home_Script.js' %}"></script>  
+  </body>
+</html>

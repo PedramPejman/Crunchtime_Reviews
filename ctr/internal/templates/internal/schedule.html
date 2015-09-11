@@ -16,11 +16,11 @@
       </div>
       <ul>
         <li class="head"></li>
-        <li><a href="/internal/home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
-        <li><a href="/internal/inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
-        <li class="active"><a href="/internal/sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
-        <li><a href="/internal/videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
-        <li><a href="/internal/settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+        <li><a href="../../home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="../../inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li class="active"><a href="../../sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li><a href="../../videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
+        <li><a href="../../settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span>Rating</span></a></li>
@@ -30,12 +30,15 @@
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
         <li class="rating-title"><a href=""><span></span></a></li>
-        <li class="signout"><a href="/internal/logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
+        <li class="signout"><a href="../../logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
       </ul>
     </div>
     <div id="main">
+      {% if error %}
+	{{error}}
+      {% endif %}
       <header>
-        <span class="header-title">Schedule a Session</span> 
+        <span class="header-title">Schedule a Session</span> <small>Make sure to <a target="_blank" href="readme">view this README document</a> before scheduling your session</small>
       </header>
       <div id="content">
         <div class="schedule-form">
@@ -44,9 +47,15 @@
           <div class="container">
           <h2>Give 'em hell {{user.first_name}}!</h2>
           <br><br>
-          <a href="/internal/home/" class='btn'>Return Home</a>
+          <a href="../../home/" class='btn'>Return Home</a>
           </div>
           {% else %}
+          <div style="margin-top: 20px;" class="box">
+            <div class="body">
+              <p>Have you reserved space? If not check <a target="_blank" href="readme">this</a> out</p>
+            </div>
+            </div>
+          <h1 style="margin-top: 40px;" class="section-title">Space Reserved? Post The Session!</h1>
           <div class="container" >
             <form class="form" action="" method="post">
                   {% csrf_token %}

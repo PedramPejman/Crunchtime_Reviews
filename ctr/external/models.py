@@ -15,10 +15,17 @@ class Session(models.Model):
 	instructor = models.ForeignKey('Instructor')
 	location = models.CharField(max_length=40, null=True)
 	description = models.TextField(default="To prepare for the next examination.")
-	present = models.IntegerField(default=0)
 	status = models.CharField(max_length='5', choices=SESSION_STATUS, default=SESSION_STATUS[0])
 	test_file = models.FileField(null=True)
 	students = models.ManyToManyField('Student')
+
+	@property
+	def present(self):
+		return len(Student.objects.filter(session=self))
+
+	@present.setter
+	def present(self, value):
+		pass
 
 	@property
 	def rating(self):
@@ -26,7 +33,7 @@ class Session(models.Model):
 		if ratings:
 			return round(ratings, 2)
 		else:
-			return 0
+			return 4.0
 
 	@rating.setter
 	def rating(self, value):
@@ -41,6 +48,18 @@ class Session(models.Model):
 class Course(models.Model):
 	name = models.CharField(max_length=30)
 	code = models.CharField(max_length=10)
+
+	@property
+	def students (self):
+		sessions = Session.objects.filter(course=self)
+		students = []
+		for session in sessions:
+			students = students + list(session.students.all())
+		return students
+
+	@students.setter
+	def students(self, value):
+		pass
 
 	def __str__(self):
 		return "Course %s: %s" % (self.code, self.name)
@@ -66,7 +85,7 @@ class Instructor(models.Model):
 		if ratings:
 			return round(ratings, 2)
 		else:
-			return 0
+			return 4.0
 
 	@rating.setter
 	def rating(self, value):
@@ -134,9 +153,15 @@ class Question(models.Model):
 	text = models.TextField(default=None)
 	note = models.TextField(blank=True, null=True)
 
+	def __str__(self):
+		return "Question (%s) for %s" % (self.text, self.course)
+
 class Student(models.Model):
 	student_id = models.CharField(max_length=10)
 	date_created = models.DateField(auto_now_add=True)
+
+	def __str__(self):
+		return self.student_id
 
 class Rating(models.Model):
 	student = models.ForeignKey('Student')
