@@ -27,3 +27,6 @@ for course, videos in courses.items():
 
 #with open('file.py') as f:
  #exec(f.read())
+
+#from django.core.files import File
+#i.picture.save('default.jpg', File(open('media/employee_photos/default.jpg','rb')))
