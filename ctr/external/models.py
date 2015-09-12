@@ -122,7 +122,7 @@ class Video(models.Model):
 		return "%s for %s(%s - %s)" % (self.title, self.course, self.unit, self.section)
 
 	class Meta:
-		ordering= ['unit', 'title']
+		ordering= ['unit', 'section', 'title']
 
 	def save(self, *args, **kwargs):
 		if (str(self.unit).isdigit()):
