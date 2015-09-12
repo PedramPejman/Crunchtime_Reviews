@@ -30,14 +30,14 @@ def schedule_recepients(students):
 
 
 #ASK MAIL
-ask_subject = 'Crunchtime Request Confirmation'
+ask_subject = 'Crunchtime Question Confirmation'
 
 def ask_message(question):
 	return "Dear Student,\n\nThank you for your question. Our instructors will make sure to answer it in your course's next session.\n\nNo session scheduled for your course? Request one on our website!\n\nSincerely, Your Humble Crunchers"
 
 
 #ASK_ALERT MAIL
-ask_alert_subject = 'Crunchtime Request Submitted'
+ask_alert_subject = 'Crunchtime Question Submitted'
 
 def ask_alert_recepients(instructors):
 	emails = []
@@ -47,3 +47,26 @@ def ask_alert_recepients(instructors):
 
 def ask_alert_message(question):
 	return "Dear Instructor,\n\nThis is a notice that a question for course %s has been submitted by a student.\n\nPlease goto your dashboard or inbox to review details on the question. If you have not already scheduled a session for this course, please consider scheduling one or contacting one of the other %s instructors" %(question.course.code, question.course.code)
+
+
+#REQUEST MAIL
+request_subject = "Crunchtime Request Confirmation"
+
+def request_message():
+	return "Dear Student,\n\nThank you for your request. As more requests come in for this examination, our instructors will schedule a session for your course and notify your section.\n\nSincerely, Your Humble Crunchers"
+
+#REQUEST_ALERT MAIL
+request_alert_subject = 'Crunchtime Request Submitted'
+
+def request_alert_recepients(request):
+	instructors = request.course.instructor_set.all()
+	emails = []
+	for instructor in instructors:
+		emails.append(instructor.user.username + "@virginia.edu")
+	return emails
+
+
+def request_alert_message(request):
+	return "Dear Instructor,\n\nThis is a notice that a request for course %s has been submitted by a student.\n\nPlease goto your dashboard at crunchtimereviews.com/login to review details on the request. If you have not already scheduled a session for this course, please consider scheduling one or contacting one of the other %s instructors.\n\n\n Please goto your dashboard " %(request.course.code, request.course.code)
+
+

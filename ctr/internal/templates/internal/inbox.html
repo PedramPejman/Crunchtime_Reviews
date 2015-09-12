@@ -44,7 +44,11 @@
           <div class="item">
             <div class="circle"></div>
             <div class="message">
-              <Here><h4>{{request.course.code}}</h4>{{request.description}}</Here>
+              <Here><h4>{{request.course.code}}</h4>{{request.description}}
+	      	{% if request.note%}
+			<br> {{request.note}}
+		{% endif %}
+		</Here>
             </div>
           </div>
         {% endfor %}
