@@ -44,5 +44,13 @@ $(document).ready(function() {
     }, submitPhase1);
   });
   
-  
+  $("#password").keypress(function(e) {
+	e = e || window.event;
+        if (e.keyCode == 13)
+        {
+            document.getElementById('submit_animation').click();
+            return false;
+        }
+        return true;
+});
 });
