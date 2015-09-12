@@ -67,6 +67,6 @@ def request_alert_recepients(request):
 
 
 def request_alert_message(request):
-	return "Dear Instructor,\n\nThis is a notice that a request for course %s has been submitted by a student.\n\nPlease goto your dashboard or inbox to review details on the request. If you have not already scheduled a session for this course, please consider scheduling one or contacting one of the other %s instructors" %(request.course.code, request.course.code)
+	return "Dear Instructor,\n\nThis is a notice that a request for course %s has been submitted by a student.\n\nPlease goto your dashboard at crunchtimereviews.com/login to review details on the request. If you have not already scheduled a session for this course, please consider scheduling one or contacting one of the other %s instructors.\n\n\n Please goto your dashboard " %(request.course.code, request.course.code)
 
 

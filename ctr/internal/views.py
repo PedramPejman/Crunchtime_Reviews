@@ -61,8 +61,8 @@ def instructor_dashboard(request):
 	rating = Instructor.objects.get(user=user).rating
 	rating_percent = rating * 20
 
-	requests = Request.objects.filter(course__in=instructor.courses.all())
-	questions = Question.objects.filter(course__in=instructor.courses.all())
+	requests = Request.objects.filter(course__in=instructor.courses.all()).order_by('-date_created')
+	questions = Question.objects.filter(course__in=instructor.courses.all()).order_by('-date_created')
 
 
 	return render(request, 'internal/home.html', {'user': user, 
