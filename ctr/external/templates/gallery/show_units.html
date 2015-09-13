@@ -14,7 +14,7 @@
 			<div class='unit-items-container'>
 				<ul class= 'section-list'>
 					{% for video in unit_videos%}
-					<li class='section'><a class = 'section-text' href="{{unit|slugify}}/{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.section|add:" - "|add:video.title}}</a></li>
+					<li class='section'><a class = 'section-text' href="{{unit|slugify}}/{{video.id}}{{'-'|add:video.title|slugify}}/">{{video.unit|slice:"5:"|add:"."|add:video.section|add:" - "|add:video.title}}</a></li>
 					{% endfor %}
 				</ul>
 			</div>
