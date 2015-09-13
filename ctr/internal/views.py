@@ -71,6 +71,21 @@ def instructor_dashboard(request):
 		'previous_sessions': previous_sessions, 'requests': requests, 'questions': questions})
 
 @login_required
+def session_students(request, session_id):
+	user = request.user
+	if not user: return Http404('Error')
+
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+	
+	session = Session.objects.get(id=session_id)
+	students = session.students.all()
+	
+	return render(request, 'internal/session_students.html', {'user': user, 'students': students})
+
+	
+
+@login_required
 def inbox(request):
 	user = request.user
 	if not user: return Http404('Error')
