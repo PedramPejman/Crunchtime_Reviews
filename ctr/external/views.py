@@ -107,7 +107,8 @@ def send_rating(request, sess_id):
 	data = rating_mail_wrap(session)
 	
 	try:
-		number = send_mass_mail(data, fail_silently=False)
+	#	number = send_mass_mail(data, fail_silently=False)
+		number =0
 		print(data)
 	except:
 		print("could not send email")
