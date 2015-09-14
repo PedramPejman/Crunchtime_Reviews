@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'external/ask/ask_style.css' %}" />
+
+{% if accepted %}
+	<h1>Thank You!</h1>
+	<div class="container">
+		<br><br>
+		<a href="../../../" class='btn'>Return Home</a>
+	</div>
+{% else %}
+	<h1>Rate Your Crunchtime Session!</h1>
+	<div class='subtitle'>We want to know how we're doing. Please take a second to share your thoughts with us.</div>
+	<div class="container" >
+	  <form class="form" action="" method="post">
+	        {% csrf_token %}
+	    
+	    <fieldset style="margin-top:50px;"class="form-fieldset ui-input __second">
+	      <select class='different-input' name="value" id="rating_num" tabindex="0">
+	        <option>How did {{session.instructor.user.first_name}} do?</option>
+	        	<option value="5">Loved it!</option>
+	        	<option value="4">It was pretty good</option>
+	        	<option value="3">Not that helpful</option>
+	        	<option value="2">Waste of Time</option>
+	        	<option value="1">I want my tuition back</option>
+	        </select>
+	        <label for="rating_num">
+		        {{form.value.errors}}
+	      	</label>
+	    </fieldset>
+	    
+	    <fieldset class="form-fieldset ui-input __fourth">
+	      <input type="text" id="note" name="note"/>
+	      <label for="note">
+	        <span data-text="Additional Notes">Additional Notes</span>
+	        {{form.note.errors}}
+	      </label>
+	    </fieldset>
+
+	    {{form.non_field_errors}}
+
+	    <div class="form-footer">
+	      <input type="submit" class="btn" value="Request" />
+	    </div>
+	  </form>
+	</div>
+{% endif %}
+
+<script src="{% static 'jquery.js'%}"></script>
+<script src="{% static 'external/ask/ask_script.js'%}"></script>

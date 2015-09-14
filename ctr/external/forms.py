@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from .models import Request, Question
+from django import forms
+from .models import Request, Question, Rating
 
 class RequestForm(ModelForm):
 	class Meta:
@@ -25,4 +26,14 @@ class QuestionForm(ModelForm):
 		'note': 'Additional Notes',
 		'attachment': 'Attach a picture if you want!'
 		}
+
+class RatingForm(ModelForm):
+
+	class Meta:
+		model = Rating
+		fields = ['text', 'value']
+		labels = ['Additional Notes?', 'How did we do?']
+
+
+
 
