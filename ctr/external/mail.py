@@ -70,3 +70,25 @@ def request_alert_message(request):
 	return "Dear Instructor,\n\nThis is a notice that a request for course %s has been submitted by a student.\n\nPlease goto your dashboard at crunchtimereviews.com/login to review details on the request. If you have not already scheduled a session for this course, please consider scheduling one or contacting one of the other %s instructors.\n\n\n Please goto your dashboard " %(request.course.code, request.course.code)
 
 
+#RATING_EMAIL
+rating_subject = 'Please Rate Your Crunchtime Session'
+
+def rating_recepients(session):
+	students = session.students.all()
+	emails = []
+	for student in students:
+		emails.append(student.student_id + "@virginia.edu")
+	return emails
+
+
+def rating_message(session, student):
+	link = "crunchtimereviews.com/sessions/%s/rate/%s" %(session.id, student.student_id)
+	return "Dear student,\n\nWe hope you benefited from today's Crunchtime session.\n\nWe live off of feedback - please take <5 seconds to rate your session.\n\nJust click on this link and rate your instructor!\n\n %s \nSincerely,\nYour Humble Crunchers" %(link)
+
+def rating_mail_wrap(session):
+	students = session.students.all()
+	tup = []
+	for student in students:
+		mail_data = (rating_subject, rating_message(session, student), crunchtime_host, [student.student_id+"@virginia.edu"])
+		tup.append(mail_data)
+	return tuple(tup)

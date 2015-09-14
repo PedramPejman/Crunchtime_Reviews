@@ -168,3 +168,4 @@ class Rating(models.Model):
 	instructor = models.ForeignKey('Instructor')
 	session = models.ForeignKey('Session')
 	value = models.FloatField()
+	text = models.TextField(default=None, null=True, blank=True)

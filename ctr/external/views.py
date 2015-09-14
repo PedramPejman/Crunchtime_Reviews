@@ -67,6 +67,55 @@ def sessions_request(request):
 	return render(request, 'sessions/request.html', {'form':request_form, 'accepted': accepted, 
 		'errors': errors, 'courses': courses})
 
+def session_rating(request, sess_id, student_id):
+	try:
+		print(sess_id)
+		session = Session.objects.get(id=int(sess_id))
+		print(session)
+	except:
+		return HttpResponse("This session does not exist")
+	try:
+		student = Student.objects.get(student_id=student_id)
+	except:
+		return HttpResponse("This student does not exist")			
+
+	accepted = False
+	prev_rating = Rating.objects.filter(student=student, session=session)
+	if len(prev_rating) > 0:
+		accepted = True
+	if not accepted and request.method == 'POST':
+		form = RatingForm(request.POST)
+		if form.is_valid():
+			rate = form.save(commit=False)
+			rate.student = student
+			rate.session = session
+			rate.instructor = session.instructor
+			rate.save()
+			accepted = True
+	else:
+		form = RatingForm()
+	return render(request, 'sessions/rating.html', {'form':form, 'accepted': accepted, 'student': student,
+		'session': session})
+
+def send_rating(request, sess_id):
+	#return HttpResponse("no")
+	try:
+		session = Session.objects.get(id=int(sess_id))
+	except:
+		return HttpResponse("This session does not exist")
+
+	data = rating_mail_wrap(session)
+	
+	try:
+		number = send_mass_mail(data, fail_silently=False)
+		print(data)
+	except:
+		print("could not send email")
+		print(data)
+		return HttpResponse("Error")
+
+	return HttpResponse("sent %s successful emails" %(number))
+
 
 def gallery_show(request):
 	BOX_HEIGHT = 162
