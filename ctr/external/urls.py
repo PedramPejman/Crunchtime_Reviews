@@ -6,6 +6,7 @@ urlpatterns = [
 	url(r'^$', TemplateView.as_view(template_name="home.html")),
 	url(r'^sessions/request/$', views.sessions_request),
 	url(r'^sessions/$', views.sessions_show),
+	url(r'^sessions/plain$', views.sessions_plain),
 	url(r'^sessions/(?P<sess_id>[0-9]+)/rate/(?P<student_id>[0-9a-zA-Z]+)$', views.session_rating),
 	url(r'^sessions/sendRate/(?P<sess_id>[0-9]+)/$', views.send_rating),
 	url(r'^sessions/attend/(?P<student_id>[a-zA-Z0-9]+)/(?P<session_id>[0-9]+)$', views.attend),

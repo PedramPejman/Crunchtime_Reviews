@@ -27,6 +27,12 @@ def sessions_show(request):
 	return render_to_response('sessions/show.html',{'sessions':sessions, 'days': result, 
 		'month_name':month_name})
 
+def sessions_plain(request):
+	#recent_sessions = Session.objects.filter(date__gte= (datetime.now() - timedelta(days=7)))[:5]
+	sessions = Session.objects.all()
+	return render_to_response('sessions/plain.html',{'sessions':sessions})
+
+
 def calendar_show(request):
 	sessions = Session.objects.all()
 	today = datetime.today()

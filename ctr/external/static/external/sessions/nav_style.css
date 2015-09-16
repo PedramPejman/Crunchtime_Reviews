@@ -129,6 +129,14 @@
   }
 }
 
+.plain-note {
+  position: fixed;
+  margin-left: 50%;
+  bottom: 5%;
+  color: rgba(10,10,10,.7);
+  transform: translateX(-50%);
+}
+
 .fixed-nav-button {
     position: fixed;
     bottom: 5%;
