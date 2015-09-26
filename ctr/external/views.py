@@ -10,7 +10,7 @@ import calendar
 
 def sessions_show(request):
 	#recent_sessions = Session.objects.filter(date__gte= (datetime.now() - timedelta(days=7)))[:5]
-	sessions = Session.objects.all()
+	sessions = Session.objects.filter(date__gte=(datetime.now() - timedelta(days=2)))
 	today = datetime.today()
 	cal = calendar.Calendar()
 	month_name = calendar.month_name[today.month]
@@ -113,8 +113,8 @@ def send_rating(request, sess_id):
 	data = rating_mail_wrap(session)
 	
 	try:
-	#	number = send_mass_mail(data, fail_silently=False)
 		number =0
+		number = send_mass_mail(data, fail_silently=False)
 		print(data)
 	except:
 		print("could not send email")
