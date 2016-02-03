@@ -1,0 +1,152 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Inbox</title>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{%static 'internal/dashboard_base_style.css'%}">
+  </head>
+  <body>    
+    <div id="nav">
+      <div class="user-banner"><img src="{{user_picture}}"/>
+        <h5 class="username">{{user.first_name|add:" "|add:user.last_name}}</h5>
+      </div>
+      <ul>
+        <li class="head"></li>
+        <li><a href="../home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="../inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li class="active"><a href="../courses/"><i class="fa fa-fw fa-book"></i><span>Courses</span></a></li>
+        <li><a href="../sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
+        <li><a href="../videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
+        <li><a href="../settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span>Rating</span></a></li>
+        <div class="progress clear-right">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{rating_percent}}%;" class="progress-bar">{{rating}}<span class="sr-only">{{rating_percent}}% Complete</span></div>
+        </div>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="rating-title"><a href=""><span></span></a></li>
+        <li class="signout"><a href="../logout/"><i class="fa fa-fw fa-sign-out"></i><span>Log Out</span></a></li>
+      </ul>
+    </div>
+    <div id="main">
+      <header>
+        <span class="header-title">Course Details</span> <small>Course Details</small>
+      </header>
+      <div id="content">
+        <h1 class="section-title">Active Instructors for This Course</h1>
+        {% if instructors %}
+        <div class="timeline">
+        {% for inst in instructors %}
+          <div class="item">
+            <div class="circle"></div>
+            <div class="message">
+              <Here><h4>{{inst.name}}</h4>{{inst.full_name}}</Here>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+        {% else %}
+        <div style="margin-top: 20px;" class="box">
+          <div class="body">
+            <p>There are no instructors for this course</p>
+          </div>
+        </div>
+        {% endif %}
+        <h1 class="section-title">Students who Have Registered</h1>
+        {% if students %}
+        <div class="student-grid">
+        {% for student in students%}
+          <div class="student">
+              <div>{{student.student_id}}</div>
+          </div>
+        {% endfor %}
+        </div>
+        {% else %}
+        <div style="margin-top: 20px;" class="box">
+          <div class="body">
+            <p>No students have signed up for this course</p>
+          </div>
+        </div>
+        {% endif %}
+	<h1 class="section-title">Students Added by Administrators</h1>
+        {% if potential_students %}
+        <div class="student-grid">
+        {% for student in potential_students%}
+          <div class="student">
+              <div>{{student}}</div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+        {% else %}
+        <div style="margin-top: 20px;" class="box">
+          <div class="body">
+            <p>No students have been added by the administrators</p>
+          </div>
+        </div>
+        {% endif %}
+	<h1 class="section-title">Add Students to Course Record</h1>
+        <div class="schedule-form">
+        {% if accepted %}
+          <h1 class="section-title">Thank You!</h1>
+          <div class="container">
+          <h2>Your changes have been recorded!</h2>
+          <br><br>
+          <a href="../home/" class='btn'>Log Me Back In!</a>
+          </div>
+        {% else %}
+          <div class="container" >
+            <form class="form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+              <fieldset class="form-fieldset ui-input __first">
+                <textarea style="width: 75%; height: 100px;" type="text" rows="10" cols="50" id="students" name="students" tabindex="0"></textarea>
+                <label style="display:block;" for="students">
+                  <span data-text="Password">Please enter student IDs space delimited (eg. "pp5nv ll4uu jkb3tf")</span>
+                  {{form.students.errors}}
+                </label>
+              </fieldset>
+
+              {{form.non_field_errors}}
+
+              <div class="form-footer">
+                <input type="submit" class="btn" value="Add Students" />
+              </div>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+ 
+	
+
+
+
+      </div> <!-- End content -->
+    </div> <!--End Main-->
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'></script>
+    <script src="{%static 'internal/home_Script.js' %}"></script>  
+  </body>
+</html>
+
+<style>
+.student-grid {
+  display: table;
+  grid-template-columns: 100px 10px 100px 10px 100px;
+  grid-template-rows: auto 10px auto;
+  margin-bottom: 60px;
+}
+.student {
+
+  float:left;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100px;
+  margin: 5px;
+}
+</style>

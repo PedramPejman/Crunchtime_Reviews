@@ -16,10 +16,11 @@ def attend_message(session_id, student_id):
 
 
 #SCHEDULE MAIL
-schedule_subject = 'New Crunchtime Session'
+def schedule_subject(session):
+	return 'New Crunchtime Review Session for ' + session.course.name
 
 def schedule_message(session):
-	return 'Dear Student,\n\nWe are excited to announce that there our instructors have scheduled a review session for your course.\n\nPlease goto crunchtimereviews.com to sign up for the session.\n\nAlso use our "Ask" feature to ask any questions you would like to see worked out at the session.\n\nSincerely,\nYour Humble Crunchers'
+	return 'Dear Student,\n\nWe are excited to announce that there Crunchtime Reviews instructors have scheduled a review session for your course.\n\nPlease goto crunchtimereviews.com to sign up for the session.\n\nAlso use our "Ask" feature to ask any questions you would like to see worked out at the session.\n\nSincerely,\nYour Humble Crunchers'
 	
 
 def schedule_recepients(students):

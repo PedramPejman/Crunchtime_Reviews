@@ -48,6 +48,7 @@ class Session(models.Model):
 class Course(models.Model):
 	name = models.CharField(max_length=30)
 	code = models.CharField(max_length=10)
+	potential_students = models.ManyToManyField('Student')
 
 	@property
 	def students (self):

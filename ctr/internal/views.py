@@ -10,6 +10,93 @@ from .forms import *
 from external.mail import *
 from ctr.settings import DOC_ROOT 
 from external.models import *
+import re
+
+#MOVE FORWARD
+
+@login_required
+def send_course_email(request, session_id):
+	user = request.user
+	if not user: return Http404('Error')
+	
+	error = None
+	session = Session.objects.get(id=session_id)
+	students = session.course.potential_students.all()
+	
+	email = {}
+	email['subject'] = schedule_subject(session)
+	email['body'] = schedule_message(session)
+	email['students'] = students	
+	email['course'] = session.course.name
+	accepted = False
+	scheduleForm = ScheduleForm()
+	if request.method == "POST":
+		accepted = True
+		try:
+			data = (schedule_subject(session), schedule_message(session), crunchtime_host, schedule_recepients(students))
+			send_mass_mail((data,))
+		except:
+			#Check why it failed
+			if (len(session.course.students) > 0):
+				error = "IMPORTANT: Please let the website administrator know that a notification email was not sent for this session."
+			print("Could not send email")
+			
+		else:
+			errors = scheduleForm.errors
+
+
+	return render(request, 'internal/send_email.html', {'user': user, 'email': email,
+		'error': error, 'students': students, 'form': scheduleForm, 'accepted': accepted, 'courses': courses })
+
+@login_required
+def courses(request):
+	user = request.user
+	if not user: return Http404('Error')
+
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+	user_picture = instructor.picture.url
+
+	courses = Course.objects.all()
+
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+	
+	return render(request, 'internal/courses.html', {'user': user, 'instructor': instructor, 'user_picture': user_picture,
+		'courses': courses, 'rating': rating, 'rating_percent': rating_percent})
+
+def course(request, course_id):	
+	user = request.user
+	if not user: return Http404('Error')
+
+	instructor = Instructor.objects.get(user=user)
+	if not instructor: return Http404('Error')
+	user_picture = instructor.picture.url
+	
+	course = Course.objects.get(id=course_id)
+
+	instructors = course.instructor_set.all()
+	for inst in instructors:
+		inst.full_name = inst.name
+	rating = Instructor.objects.get(user=user).rating
+	rating_percent = rating * 20
+	
+	potential_students = list(course.potential_students.all())	
+	students = course.students
+	added_students = []	
+	if request.method == 'POST':
+		if (len(request.POST['students']) > 3):
+			added_students = re.split(' ', request.POST['students'])
+		for stud in added_students:
+			st = Student(student_id=stud)
+			st.save()	
+			course.potential_students.add(st)	
+		potential_students += added_students
+
+	return render(request, 'internal/course.html', {'user': user, 'instructor': instructor, 'user_picture': user_picture,
+		'courses': courses, 'rating': rating, 'potential_students': potential_students, 'students': students, 
+		'instructors': instructors,  'rating_percent': rating_percent})
+
 
 
 def login(request):
@@ -162,7 +249,8 @@ def sessions_schedule(request):
 
 			try:
 				data = (schedule_subject, schedule_message(session), crunchtime_host, schedule_recepients(session.course.students))
-				send_mass_mail((data,))
+				#Switching to the potential student mass email model
+				#send_mass_mail((data,))
 			except:
 				#Check why it failed
 				if (len(session.course.students) > 0):

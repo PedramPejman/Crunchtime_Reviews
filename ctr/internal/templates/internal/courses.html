@@ -16,8 +16,8 @@
       <ul>
         <li class="head"></li>
         <li><a href="../home"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
-        <li class="active"><a href="../inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
-        <li><a href="../courses/"><i class="fa fa-fw fa-book"></i><span>Courses</span></a></li>
+        <li><a href="../inbox/"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+        <li class="active"><a href="../courses/"><i class="fa fa-fw fa-book"></i><span>Courses</span></a></li>
         <li><a href="../sessions/"><i class="fa fa-fw fa-user"></i><span>Sessions</span></a></li>
         <li><a href="../videos/"><i class="fa fa-fw fa-video-camera"></i><span>Videos</span></a></li>
         <li><a href="../settings/"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
@@ -35,52 +35,30 @@
     </div>
     <div id="main">
       <header>
-        <span class="header-title">Inbox</span> <small>Check requests and questions that pretain to your course in more detail</small>
+        <span class="header-title">Courses Offered</span> <small></small>
       </header>
       <div id="content">
-        <h1 class="section-title">Recent Requests</h1>
-        {% if requests %}
+        <h1 class="section-title">Select to View Details</h1>
+        {% if courses %}
         <div class="timeline">
-        {% for request in requests %}
-          <div class="item">
+        {% for course in courses %}
+          <div class="item"> <a href="{{course.id}}">
             <div class="circle"></div>
             <div class="message">
-              <Here><h4>{{request.course.code}}</h4>{{request.description}}
-	      	{% if request.note%}
-			<br> {{request.note}}
+              <Here><h4>{{course.name}}</h4> {{course.code}}
+	      	{% if cours%}
+			<br> {{course.id}}
 		{% endif %}
 		</Here>
             </div>
+		</a>
           </div>
         {% endfor %}
         </div>
         {% else %}
         <div style="margin-top: 20px;" class="box">
           <div class="body">
-            <p>There are no requests for your course!</p>
-          </div>
-        </div>
-        {% endif %}
-        <h1 class="section-title">Recent Questions</h1>
-        {% if questions %}
-        <div class="timeline">
-        {% for question in questions%}
-          <div class="item">
-            <div class="circle"></div>
-            <div class="message">
-              <div>{{question.student_id}}: {{question.text}}</div>
-              {% if question.attachment %}
-              <a href="{{question.attachment.url}}">Attachment</a>
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-        </div>
-      </div>
-        {% else %}
-        <div style="margin-top: 20px;" class="box">
-          <div class="body">
-            <p>No questions have come your way lately!</p>
+            <p>There are no courses available this semester!</p>
           </div>
         </div>
         {% endif %}
